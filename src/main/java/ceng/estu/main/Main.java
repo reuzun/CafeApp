@@ -1,4 +1,4 @@
-package ceng.estu;
+package ceng.estu.main;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

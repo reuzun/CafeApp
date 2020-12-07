@@ -8,6 +8,6 @@ module ceng.estu {
 
     requires fontawesomefx;
     requires com.jfoenix;
-    opens ceng.estu to javafx.fxml;
-    exports ceng.estu;
+    opens ceng.estu.controller to javafx.fxml;
+    exports ceng.estu.main;
 }

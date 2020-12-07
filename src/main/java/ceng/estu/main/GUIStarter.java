@@ -1,4 +1,4 @@
-package ceng.estu;
+package ceng.estu.main;
 
 /**
  * @author reuzun

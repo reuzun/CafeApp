@@ -68,7 +68,7 @@
 
                     <archive>
                         <manifest>
-                            <mainClass>ceng.estu.GUIStarter</mainClass>
+                            <mainClass>ceng.estu.main.GUIStarter</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
@@ -99,7 +99,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.4</version>
                 <configuration>
-                    <mainClass>ceng.estu.GUIStarter</mainClass>
+                    <mainClass>ceng.estu.main.GUIStarter</mainClass>
                 </configuration>
                 <executions>
                     <execution>
