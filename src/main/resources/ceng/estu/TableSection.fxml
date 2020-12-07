@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <BorderPane prefHeight="550.0" prefWidth="800.0">
+         <left>
+            <VBox prefHeight="550.0" prefWidth="186.0" spacing="20.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label prefHeight="82.0" prefWidth="182.0" text="Label">
+                     <graphic>
+                        <FontAwesomeIcon size="3em" wrappingWidth="53.0" />
+                     </graphic>
+                  </Label>
+                  <JFXButton prefHeight="91.0" prefWidth="190.0" />
+                  <JFXButton layoutX="10.0" layoutY="27.0" prefHeight="91.0" prefWidth="190.0" />
+                  <JFXButton layoutX="10.0" layoutY="118.0" prefHeight="91.0" prefWidth="190.0" />
+               </children>
+            </VBox>
+         </left>
+         <center>
+            <ListView fx:id="tableListView" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+         </center>
+         <right>
+            <AnchorPane prefHeight="550.0" prefWidth="426.0" BorderPane.alignment="CENTER">
+               <children>
+                  <BorderPane layoutX="1.0" layoutY="-1.0" prefHeight="550.0" prefWidth="426.0">
+                     <top>
+                        <AnchorPane prefHeight="122.0" prefWidth="426.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Text layoutX="105.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ürün ekleme alanı solda da masalar listview olarak" />
+                              <ChoiceBox fx:id="menuChoieceBox" layoutX="48.0" layoutY="49.0" prefWidth="150.0" />
+                              <Button layoutX="296.0" layoutY="49.0" mnemonicParsing="false" onAction="#addToBill" text="Add To Bill" />
+                           </children>
+                        </AnchorPane>
+                     </top>
+                     <center>
+                        <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                           <children>
+                              <Text layoutX="91.0" layoutY="64.0" strokeType="OUTSIDE" strokeWidth="0.0" text="FATURA DETAYLARI ÜRÜN ÇIKARMAK İÇİN DE - BUTTON " />
+                              <VBox fx:id="BillVBox" layoutX="41.0" layoutY="88.0" prefHeight="308.0" prefWidth="157.0" />
+                              <Button layoutX="257.0" layoutY="151.0" mnemonicParsing="false" onAction="#payBill" prefHeight="107.0" prefWidth="153.0" text="ÖDE" />
+                           </children>
+                        </AnchorPane>
+                     </center>
+                  </BorderPane>
+               </children>
+            </AnchorPane>
+         </right>
+      </BorderPane>
+   </children>
+</AnchorPane>
