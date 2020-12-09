@@ -6,10 +6,11 @@ package ceng.estu.classes;
 public class Table {
 
     protected String nameOfTable;
+    static int id = 0;
     private Bill bill;
 
-    public Table(String name){
-        nameOfTable = name;
+    public Table(){
+        nameOfTable = "table " + id++;
         bill = new Bill();
         bill.setTable(this);
     }
@@ -20,7 +21,7 @@ public class Table {
 
     @Override
     public String toString() {
-        return this.nameOfTable;
+        return this.nameOfTable +" ==> "+ this.getBill().totalPrice;
     }
 
     public void setBill(Bill bill) {
@@ -31,11 +32,12 @@ public class Table {
 
     public void reset(){
         this.bill.getBill().clear();
+        this.bill.totalPrice = 0;
     }
 
-    public void addProduct(Product product){
+    /*public void addProduct(Product product){
         bill.addToBill(product);
-    }
+    }*/
 
 
 }

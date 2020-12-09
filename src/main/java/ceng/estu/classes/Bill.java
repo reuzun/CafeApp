@@ -10,6 +10,7 @@ import java.util.LinkedList;
 public class Bill {
     private LinkedList<Product> bill;
     private Table table;
+    double totalPrice = 0;
 
 
     public Bill(){
@@ -39,7 +40,15 @@ public class Bill {
      *
      * @param product the product
      */
-    public void addToBill(Product product){
+    public void addToBill(Product product, int a){
+        totalPrice += product.getPrice()*a;
+        for(int i = 0 ; i < bill.size() ; i++){
+            if(bill.get(i).getName().equals(product.getName())){
+                bill.get(i).increaseCount(a);
+                return;
+            }
+        }
+        product.increaseCount(a-1);
         bill.add(product);
     }
 
