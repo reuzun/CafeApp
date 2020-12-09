@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.StringTokenizer;
 
 /**
  * @author reuzun
@@ -29,17 +30,27 @@ public class SettingSectionController implements Initializable {
     private TextField nameAreaForAdding;
     @javafx.fxml.FXML
     private TextField priceAreaForAdding;
+    @javafx.fxml.FXML
+    private TextField tableCountArea;
 
 
     @javafx.fxml.FXML
     public void addProduct(ActionEvent actionEvent) {
-        GlobalVariables.menu.add(new Product(nameAreaForAdding.getText(),Double.parseDouble(priceAreaForAdding.getText())));
+        StringTokenizer tokenizer = new StringTokenizer(nameAreaForAdding.getText());
+        if(tokenizer.countTokens()>1){
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Product name must be a single word. E.G : Whiskey70cl", ButtonType.OK);
+            alert.setTitle("Product Name Error.");
+            alert.showAndWait();
+            return;
+        }
+        GlobalVariables.menu.add(new Product(nameAreaForAdding.getText(), Double.parseDouble(priceAreaForAdding.getText())));
         Alert alert = new Alert(Alert.AlertType.NONE, "Product has been added.", ButtonType.OK);
         alert.setTitle("Product has been added.");
         alert.showAndWait();
         nameAreaForAdding.setText("");
         priceAreaForAdding.setText("");
         updateChoiceBoxes();
+        GlobalVariables.updateCFG();
     }
 
     @javafx.fxml.FXML
@@ -50,6 +61,7 @@ public class SettingSectionController implements Initializable {
         alert.showAndWait();
         priceAreaForChanging.setText("");
         updateChoiceBoxes();
+        GlobalVariables.updateCFG();
     }
 
     @javafx.fxml.FXML
@@ -59,13 +71,14 @@ public class SettingSectionController implements Initializable {
         alert.setTitle("Item has been removed.");
         alert.showAndWait();
         updateChoiceBoxes();
+        GlobalVariables.updateCFG();
     }
 
 
     private void updateChoiceBoxes() {
         deleteFromMenuBoxNode.getItems().clear();
         changePriceOfSelectedProductNode.getItems().clear();
-        for(int i = 0 ; i<GlobalVariables.menu.size() ; i++){
+        for (int i = 0; i < GlobalVariables.menu.size(); i++) {
             deleteFromMenuBoxNode.getItems().add(GlobalVariables.menu.get(i));
             changePriceOfSelectedProductNode.getItems().add(GlobalVariables.menu.get(i));
         }
@@ -76,14 +89,21 @@ public class SettingSectionController implements Initializable {
         updateChoiceBoxes();
     }
 
-    @javafx.fxml.FXML
-    public void addNewTable(ActionEvent actionEvent) {
-        GlobalVariables.tableList.add(new Table());
-
-    }
 
     @javafx.fxml.FXML
-    public void removeATable(ActionEvent actionEvent) {
-        GlobalVariables.tableList.remove(GlobalVariables.tableList.size()-1);
+    public void adjustTableCount(ActionEvent actionEvent) {
+        if (Integer.parseInt(tableCountArea.getText()) > GlobalVariables.tableList.size()) {
+            for (int i = GlobalVariables.tableList.size(); i < Integer.parseInt(tableCountArea.getText()); i++) {
+                GlobalVariables.tableList.add(new Table());
+            }
+        }
+        else{
+            int size =  GlobalVariables.tableList.size();
+            int wanted = Integer.parseInt(tableCountArea.getText());
+            for (int i = size-1 ; wanted <= i ; i--) {
+                GlobalVariables.tableList.remove(i);
+            }
+        }
+        GlobalVariables.updateCFG();
     }
 }

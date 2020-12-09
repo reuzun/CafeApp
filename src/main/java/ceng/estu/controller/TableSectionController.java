@@ -19,8 +19,10 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.FileWriter;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 import java.util.StringTokenizer;
 
 /**
@@ -45,9 +47,9 @@ public class TableSectionController implements Initializable {
     public void addToBill(ActionEvent actionEvent) {
         try {
             System.out.println(Integer.parseInt(countBox.getSelectionModel().getSelectedItem().toString()));
-            tableListView.getSelectionModel().getSelectedItem().getBill().addToBill(menuChoieceBox.getSelectionModel().getSelectedItem().newInstance(),Integer.parseInt(countBox.getSelectionModel().getSelectedItem().toString()));
-        }catch (Exception e){
-            Alert alert = new Alert(Alert.AlertType.WARNING, "You did not select anytable Please select one before. ", ButtonType.OK);
+            tableListView.getSelectionModel().getSelectedItem().getBill().addToBill(menuChoieceBox.getSelectionModel().getSelectedItem().newInstance(), Integer.parseInt(countBox.getSelectionModel().getSelectedItem().toString()));
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "You did not select any table Please select one before. ", ButtonType.OK);
             alert.showAndWait();
             return;
             /* further updates.
@@ -56,37 +58,78 @@ public class TableSectionController implements Initializable {
             }*/
         }
         updateBill();
+        refreshHelper();
     }
 
     @FXML
     public void payBill(ActionEvent actionEvent) {
-        tableListView.getSelectionModel().getSelectedItem().reset();
-        updateBill();
-        updateTableList();
+        try {
+            tableListView.getSelectionModel().getSelectedItem().reset();
+            updateBill();
+            updateTableList();
+        } catch (Exception e) {
+            Alert alert = new Alert(Alert.AlertType.WARNING, "You did not select any table Please select one before. ", ButtonType.OK);
+            alert.showAndWait();
+            return;
+        }
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        for(int i = 0 ; i < 5 ;i++){
-            Table table = new Table();
-            GlobalVariables.tableList.add(table);
-            tableListView.getItems().add(table);
+        if (GlobalVariables.configFile.exists()) {
+            try (Scanner scan = new Scanner(GlobalVariables.configFile)) {
+                boolean flag = true;
+                while(scan.hasNext()){
+                    String line = scan.nextLine();
+                    if(flag){
+                        for (int i = 0; i < Integer.valueOf(line); i++) {
+                            Table table = new Table();
+                            GlobalVariables.tableList.add(table);
+                            tableListView.getItems().add(table);
+                        }
+                        flag = false;
+                        continue;
+                    }
+                    StringTokenizer tokenizer = new StringTokenizer(line);
+                    GlobalVariables.menu.add(new Product(tokenizer.nextToken(), Double.parseDouble(tokenizer.nextToken())));
+                }
+            } catch (Exception e) {
+            }
+        } else {
+            for (int i = 0; i < 5; i++) {
+                Table table = new Table();
+                GlobalVariables.tableList.add(table);
+                tableListView.getItems().add(table);
+            }
+            GlobalVariables.menu.add(new Product("Su", 10.50));
+            GlobalVariables.menu.add(new Product("Hamburger", 120.50));
+            try(FileWriter writer = new FileWriter(GlobalVariables.configFile,true);){
+                for(int i = 0 ; i < GlobalVariables.menu.size() ; i++){
+                    Product p = GlobalVariables.menu.get(i);
+                    writer.write(p.getName()+" "+p.getPrice());
+                    writer.write(System.lineSeparator());
+                }
+            }catch (Exception e){}
+            updateMenuChoiceBox();
         }
 
-        tableListView.setOnMouseClicked(e->{
-            updateBill();
-            updateMenuChoiceBox();
+        tableListView.setOnMouseClicked(e -> {
+            try {
+                updateBill();
+                updateMenuChoiceBox();
+            } catch (Exception ex) {
+                System.out.println("Something unusual happened.");
+            }
         });
 
 
-        for(int i = 1 ; i < 11 ;i++){
+        for (int i = 1; i < 11; i++) {
             countBox.getItems().add(i);
         }
         countBox.getSelectionModel().selectFirst();
 
-        GlobalVariables.menu.add(new Product("Su",10.50));
-        GlobalVariables.menu.add(new Product("Hamburger",120.50));
-        updateMenuChoiceBox();
+
+
 
 
         //A system to get items that we add once.
@@ -96,12 +139,12 @@ public class TableSectionController implements Initializable {
     }
 
 
-    private void updateBill(){
+    private void updateBill() {
         BillVBox.getChildren().clear();
         double totalPrice = 0;
         Table temp = tableListView.getSelectionModel().getSelectedItem();
-        for(Product p : temp.getBill().getBill()){
-            String str = String.format("%-12s %-6.2f x%-4d",p.getName(),p.getPrice(),p.getCount());
+        for (Product p : temp.getBill().getBill()) {
+            String str = String.format("%-12s %-6.2f x%-4d", p.getName(), p.getPrice(), p.getCount());
             Label label = new Label(str);
             label.setPrefWidth(700);
             label.setContentDisplay(ContentDisplay.RIGHT);
@@ -110,47 +153,52 @@ public class TableSectionController implements Initializable {
             label.setStyle("-fx-font-family: monospaced");
             label.setFont(new Font(14));
             BillVBox.getChildren().add(label);
-            totalPrice += p.getPrice()*p.getCount();
+            totalPrice += p.getPrice() * p.getCount();
 
-            btn.setOnAction(e->{
-               // System.out.println(label.getText());
+            btn.setOnAction(e -> {
+                // System.out.println(label.getText());
                 StringTokenizer tokenizer = new StringTokenizer(label.getText());
                 String str2 = tokenizer.nextToken();
                 //System.out.println(str2);
-                for(int i = 0 ; i < temp.getBill().getBill().size() ; i++){
-                    if(temp.getBill().getBill().get(i).getName().equals(str2)){
+                for (int i = 0; i < temp.getBill().getBill().size(); i++) {
+                    if (temp.getBill().getBill().get(i).getName().equals(str2)) {
                         temp.getBill().getBill().get(i).increaseCount(-1);
                         temp.getBill().totalPrice -= temp.getBill().getBill().get(i).getPrice();
-                        if(temp.getBill().getBill().get(i).getCount()==0)
+                        if (temp.getBill().getBill().get(i).getCount() == 0)
                             temp.getBill().getBill().remove(i);
                         updateBill();
-
+                        refreshHelper();
                     }
                 }
             });
         }
-        String price = String.format("%,-10.2f",totalPrice);
+        String price = String.format("%,-10.2f", totalPrice);
         priceText.setText(price);
     }
 
-    private void updateMenuChoiceBox(){
+    private void updateMenuChoiceBox() {
         menuChoieceBox.getItems().clear();
-        for(int i = 0 ; i < GlobalVariables.menu.size() ; i++){
+        for (int i = 0; i < GlobalVariables.menu.size(); i++) {
             menuChoieceBox.getItems().add(GlobalVariables.menu.get(i));
         }
     }
 
-    private int flag = 5;
-    private void updateTableList(){
+
+    private void updateTableList() {
         tableListView.getItems().clear();
         for (int i = 0; i < GlobalVariables.tableList.size(); i++) {
             tableListView.getItems().add(GlobalVariables.tableList.get(i));
         }
     }
 
-    @FXML
-    public void refresh(ActionEvent actionEvent) {
+
+    private void refreshHelper() {
+        int a = tableListView.getSelectionModel().getSelectedIndex();
+        int b = menuChoieceBox.getSelectionModel().getSelectedIndex();
         updateMenuChoiceBox();
         updateTableList();
+        tableListView.getSelectionModel().select(a);
+        menuChoieceBox.getSelectionModel().select(b);
     }
+
 }

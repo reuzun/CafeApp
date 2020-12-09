@@ -6,11 +6,13 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="595.0" prefWidth="854.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ceng.estu.controller.SettingSectionController">
    <children>
       <BorderPane prefHeight="550.0" prefWidth="800.0">
-         <center>
+         <bottom>
             <AnchorPane prefHeight="569.0" prefWidth="807.0" BorderPane.alignment="CENTER">
                <children>
                   <Label contentDisplay="RIGHT" layoutX="14.0" layoutY="38.0" text="Product Name:">
@@ -19,19 +21,27 @@
                      </graphic>
                   </Label>
                   <Label contentDisplay="RIGHT" layoutX="278.0" layoutY="38.0" text="Product Price" />
-                  <Label contentDisplay="RIGHT" layoutX="278.0" layoutY="299.0" text="Product Price" />
-                  <Button layoutX="572.0" layoutY="38.0" mnemonicParsing="false" onAction="#addProduct" text="Add Product" />
-                  <Button layoutX="291.0" layoutY="170.0" mnemonicParsing="false" onAction="#deleteProduct" text="Remove Product" />
-                  <Button layoutX="571.0" layoutY="295.0" mnemonicParsing="false" onAction="#changePrice" text="Change Price" />
-                  <ChoiceBox fx:id="deleteFromMenuBoxNode" layoutX="97.0" layoutY="170.0" prefWidth="150.0" />
-                  <ChoiceBox fx:id="changePriceOfSelectedProductNode" layoutX="105.0" layoutY="295.0" prefWidth="150.0" />
-                  <Button layoutX="163.0" layoutY="431.0" mnemonicParsing="false" onAction="#addNewTable" prefHeight="44.0" prefWidth="115.0" text="Add new Table" />
-                  <Button layoutX="455.0" layoutY="431.0" mnemonicParsing="false" onAction="#removeATable" prefHeight="44.0" prefWidth="115.0" text="Delete Table" />
+                  <Label contentDisplay="RIGHT" layoutX="278.0" layoutY="90.0" text="Product Price" />
+                  <Button layoutX="546.0" layoutY="38.0" mnemonicParsing="false" onAction="#addProduct" text="Add Product" />
+                  <Button layoutX="278.0" layoutY="130.0" mnemonicParsing="false" onAction="#deleteProduct" text="Remove Product" />
+                  <Button layoutX="544.0" layoutY="86.0" mnemonicParsing="false" onAction="#changePrice" text="Change Price" />
+                  <ChoiceBox fx:id="deleteFromMenuBoxNode" layoutX="96.0" layoutY="130.0" prefWidth="150.0" />
+                  <ChoiceBox fx:id="changePriceOfSelectedProductNode" layoutX="96.0" layoutY="86.0" prefWidth="150.0" />
                   <TextField fx:id="priceAreaForAdding" layoutX="363.0" layoutY="34.0" />
-                  <TextField fx:id="priceAreaForChanging" layoutX="360.0" layoutY="291.0" />
+                  <TextField fx:id="priceAreaForChanging" layoutX="363.0" layoutY="86.0" />
+                  <TextField fx:id="tableCountArea" layoutX="97.0" layoutY="202.0" />
+                  <Button layoutX="272.0" layoutY="202.0" mnemonicParsing="false" onAction="#adjustTableCount" text="Adjust Table Count" />
+                  <Text layoutX="14.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Table Count :" wrappingWidth="129.13671875" />
+                  <Text layoutX="14.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Name:" wrappingWidth="102.13671875" />
+                  <Text layoutX="14.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Name:" wrappingWidth="102.13671875" />
+                  <Text layoutX="38.0" layoutY="328.0" strokeType="OUTSIDE" strokeWidth="0.0" text="“That which does not kill us makes us stronger.” – Friedrich Nietzsche" wrappingWidth="724.13671875">
+                     <font>
+                        <Font size="34.0" />
+                     </font>
+                  </Text>
                </children>
             </AnchorPane>
-         </center>
+         </bottom>
       </BorderPane>
    </children>
 </AnchorPane>
