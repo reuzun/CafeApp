@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="mainPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="595.0" prefWidth="1060.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ceng.estu.controller.MainPanelController">
+   <children>
+      <VBox prefHeight="595.0" prefWidth="209.0" spacing="20.0" style="-fx-background-color: #b48484;">
+         <children>
+            <Label prefHeight="111.0" prefWidth="209.0" text="CafeAPP">
+               <padding>
+                  <Insets left="25.0" />
+               </padding>
+               <graphic>
+                  <ImageView fitHeight="52.0" fitWidth="65.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../photos/5f5aa2707fbe682aa4aac862.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <font>
+                  <Font name="Curlz MT" size="34.0" />
+               </font>
+            </Label>
+            <JFXButton onAction="#getTablesSection" prefHeight="91.0" prefWidth="210.0" style="-fx-background-color: #726a75;" text="Tables" />
+            <JFXButton layoutX="10.0" layoutY="27.0" onAction="#getSettingsSection" prefHeight="91.0" prefWidth="210.0" style="-fx-background-color: #726a75;" text="Settings" />
+            <JFXButton layoutX="10.0" layoutY="118.0" onAction="#getHowToUse" prefHeight="91.0" prefWidth="211.0" style="-fx-background-color: #726a75;" text="How To Use" />
+            <JFXButton fx:id="closeButton" onAction="#handleCloseAction" text=" " />
+         </children>
+      </VBox>
+      <BorderPane fx:id="panel" layoutX="208.0" layoutY="-2.0" prefHeight="595.0" prefWidth="815.0">
+         <center>
+            <ImageView fitHeight="479.0" fitWidth="616.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+               <image>
+                  <Image url="@../photos/eskisehir-teknik-universitesi-bilgisayar-muhendisligi.jpg" />
+               </image>
+            </ImageView>
+         </center></BorderPane>
+      <JFXButton fx:id="closeButton1" layoutX="1026.0" layoutY="-2.0" onAction="#handleCloseAction" text=" ">
+         <graphic>
+            <FontAwesomeIcon fill="#4c004c" iconName="TIMES" size="2em" text="" wrappingWidth="16.628522872924805" />
+         </graphic>
+      </JFXButton>
+   </children>
+</AnchorPane>

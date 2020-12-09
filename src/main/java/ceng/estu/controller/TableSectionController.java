@@ -62,6 +62,7 @@ public class TableSectionController implements Initializable {
     public void payBill(ActionEvent actionEvent) {
         tableListView.getSelectionModel().getSelectedItem().reset();
         updateBill();
+        updateTableList();
     }
 
     @Override
