@@ -43,7 +43,7 @@ public class SettingSectionController implements Initializable {
             alert.showAndWait();
             return;
         }
-        GlobalVariables.menu.add(new Product(nameAreaForAdding.getText(), Double.parseDouble(priceAreaForAdding.getText())));
+        GlobalVariables.menu.add(new Product(nameAreaForAdding.getText(), Double.parseDouble(priceAreaForAdding.getText().replaceAll(",","."))));
         Alert alert = new Alert(Alert.AlertType.NONE, "Product has been added.", ButtonType.OK);
         alert.setTitle("Product has been added.");
         alert.showAndWait();

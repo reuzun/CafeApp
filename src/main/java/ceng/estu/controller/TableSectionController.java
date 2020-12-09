@@ -59,6 +59,7 @@ public class TableSectionController implements Initializable {
         }
         updateBill();
         refreshHelper();
+        updateMenuChoiceBox();
     }
 
     @FXML
@@ -72,10 +73,16 @@ public class TableSectionController implements Initializable {
             alert.showAndWait();
             return;
         }
+        updateMenuChoiceBox();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        menuChoieceBox.setOnMouseClicked(e->{
+            updateMenuChoiceBox();
+        });
+
         if (GlobalVariables.configFile.exists()) {
             try (Scanner scan = new Scanner(GlobalVariables.configFile)) {
                 boolean flag = true;
@@ -104,6 +111,7 @@ public class TableSectionController implements Initializable {
             GlobalVariables.menu.add(new Product("Su", 10.50));
             GlobalVariables.menu.add(new Product("Hamburger", 120.50));
             try(FileWriter writer = new FileWriter(GlobalVariables.configFile,true);){
+                writer.write(5+System.lineSeparator());
                 for(int i = 0 ; i < GlobalVariables.menu.size() ; i++){
                     Product p = GlobalVariables.menu.get(i);
                     writer.write(p.getName()+" "+p.getPrice());
