@@ -10,7 +10,7 @@ import java.util.LinkedList;
 public class Bill {
     private LinkedList<Product> bill;
     private Table table;
-    double totalPrice = 0;
+    public double totalPrice = 0;
 
 
     public Bill(){
@@ -57,9 +57,15 @@ public class Bill {
      *
      * @param product the product
      */
-    public void removeFromBill(Product product){
+    /*public void removeFromBill(Product product){
         bill.remove(product);
+        totalPrice -= product.getPrice();
     }
+
+    public void removeFromBill(int indx){
+        bill.remove(bill.get(indx));
+        totalPrice -= bill.get(indx).getPrice();
+    }*/
 
     public void pay(){
         table.reset();

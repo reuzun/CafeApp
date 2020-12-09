@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.StringTokenizer;
 
 /**
  * @author reuzun
@@ -99,12 +100,33 @@ public class TableSectionController implements Initializable {
         double totalPrice = 0;
         Table temp = tableListView.getSelectionModel().getSelectedItem();
         for(Product p : temp.getBill().getBill()){
-            String str = String.format("%-15s %-6.2f x%-4d",p.getName(),p.getPrice(),p.getCount());
+            String str = String.format("%-12s %-6.2f x%-4d",p.getName(),p.getPrice(),p.getCount());
             Label label = new Label(str);
+            label.setPrefWidth(700);
+            label.setContentDisplay(ContentDisplay.RIGHT);
+            Button btn = new Button("Remove x1");
+            label.setGraphic(btn);
             label.setStyle("-fx-font-family: monospaced");
-            label.setFont(new Font(15));
+            label.setFont(new Font(14));
             BillVBox.getChildren().add(label);
             totalPrice += p.getPrice()*p.getCount();
+
+            btn.setOnAction(e->{
+               // System.out.println(label.getText());
+                StringTokenizer tokenizer = new StringTokenizer(label.getText());
+                String str2 = tokenizer.nextToken();
+                //System.out.println(str2);
+                for(int i = 0 ; i < temp.getBill().getBill().size() ; i++){
+                    if(temp.getBill().getBill().get(i).getName().equals(str2)){
+                        temp.getBill().getBill().get(i).increaseCount(-1);
+                        temp.getBill().totalPrice -= temp.getBill().getBill().get(i).getPrice();
+                        if(temp.getBill().getBill().get(i).getCount()==0)
+                            temp.getBill().getBill().remove(i);
+                        updateBill();
+
+                    }
+                }
+            });
         }
         String price = String.format("%,-10.2f",totalPrice);
         priceText.setText(price);
