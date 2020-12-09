@@ -18,7 +18,7 @@
    <children>
       <VBox fx:id="panelBox" prefHeight="595.0" prefWidth="209.0" spacing="20.0" style="-fx-background-color: #b48484;">
          <children>
-            <Label prefHeight="111.0" prefWidth="209.0" text="CafeAPP">
+            <Label fx:id="logoName" prefHeight="111.0" prefWidth="209.0" text="CafeAPP">
                <padding>
                   <Insets left="25.0" />
                </padding>
@@ -41,6 +41,11 @@
                <font>
                   <Font size="32.0" />
                </font></JFXButton>
+            <JFXButton layoutX="10.0" layoutY="141.0" onAction="#getMusicPlayer" prefHeight="91.0" prefWidth="210.0" style="-fx-background-color: #726a75;" text="Music Player" textFill="#00ffbf">
+               <font>
+                  <Font size="29.0" />
+               </font>
+            </JFXButton>
             <JFXButton layoutX="10.0" layoutY="118.0" onAction="#getHowToUse" prefHeight="91.0" prefWidth="211.0" style="-fx-background-color: #726a75;" text="How To Use" textFill="#00ffbf">
                <font>
                   <Font size="26.0" />

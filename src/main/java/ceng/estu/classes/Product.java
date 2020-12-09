@@ -38,19 +38,9 @@ public class Product {
         return new Product(this.name,this.price);
     }
 
-
     @Override
     public String toString() {
         return this.name;
     }
 
-    /*@Override
-    public boolean equals(Object o) {
-        return this.name.equals(((Product)o).name);
-    }*/
-
-    @Override
-    public int hashCode() {
-        return name.hashCode();
-    }
 }

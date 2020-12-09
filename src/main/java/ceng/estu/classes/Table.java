@@ -28,16 +28,8 @@ public class Table {
         this.bill = bill;
     }
 
-
-
     public void reset(){
         this.bill.getBill().clear();
         this.bill.totalPrice = 0;
     }
-
-    /*public void addProduct(Product product){
-        bill.addToBill(product);
-    }*/
-
-
 }

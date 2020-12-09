@@ -7,6 +7,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -24,6 +25,7 @@ public class MainPanelController implements Initializable {
     static Scene tableScene;
     static Scene settingScene;
     static Scene howToUseScene;
+    static Scene musicPlayerPage;
 
     @javafx.fxml.FXML
     private AnchorPane mainPanel;
@@ -37,17 +39,24 @@ public class MainPanelController implements Initializable {
     private JFXButton closeButton;
     @FXML
     private VBox panelBox;
+    @FXML
+    private Label logoName;
+
+    static Label staticLogo;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        staticLogo = new Label();
         makeStageDrageable();
         try {
             tableScene = new Scene(Main.loadFXML("TableSection"));
             settingScene = new Scene(Main.loadFXML("SettingSection"));
             howToUseScene = new Scene(Main.loadFXML("HowToUse"));
+            musicPlayerPage = new Scene(Main.loadFXML("MusicPlayerPage"));
         } catch (IOException e) {
             e.printStackTrace();
         }
+        logoName.textFillProperty().bind(staticLogo.textFillProperty());
     }
 
     @javafx.fxml.FXML
@@ -66,6 +75,12 @@ public class MainPanelController implements Initializable {
     public void getTablesSection(ActionEvent actionEvent) {
         panel.setCenter(tableScene.getRoot());
         panelBox.setStyle("-fx-background-color: #b48484");
+    }
+
+    @FXML
+    public void getMusicPlayer(ActionEvent actionEvent) {
+        panel.setCenter(musicPlayerPage.getRoot());
+        panelBox.setStyle("-fx-background-color: #ffffff");
     }
 
     private void makeStageDrageable() {
@@ -105,4 +120,6 @@ public class MainPanelController implements Initializable {
     public void handleCloseAction(ActionEvent actionEvent) {
         System.exit(-1);
     }
+
+
 }
