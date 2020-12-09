@@ -17,7 +17,6 @@
                <top>
                   <AnchorPane prefHeight="122.0" prefWidth="426.0" BorderPane.alignment="CENTER">
                      <children>
-                        <Text layoutX="105.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ürün ekleme alanı solda da masalar listview olarak" />
                         <ChoiceBox fx:id="menuChoieceBox" layoutX="48.0" layoutY="49.0" prefWidth="150.0" />
                         <Button layoutX="296.0" layoutY="49.0" mnemonicParsing="false" onAction="#addToBill" text="Add To Bill" />
                         <ChoiceBox fx:id="countBox" layoutX="216.0" layoutY="49.0" prefHeight="25.0" prefWidth="57.0" />
@@ -28,7 +27,7 @@
                   <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                      <children>
                         <VBox fx:id="BillVBox" layoutX="29.0" layoutY="24.0" prefHeight="335.0" prefWidth="315.0" />
-                        <Button layoutX="464.0" layoutY="343.0" mnemonicParsing="false" onAction="#payBill" prefHeight="107.0" prefWidth="153.0" text="ÖDE" />
+                        <Button layoutX="464.0" layoutY="343.0" mnemonicParsing="false" onAction="#payBill" prefHeight="107.0" prefWidth="153.0" text="PAY" />
                         <Text layoutX="29.0" layoutY="407.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Price : " wrappingWidth="169.13671875">
                            <font>
                               <Font size="29.0" />

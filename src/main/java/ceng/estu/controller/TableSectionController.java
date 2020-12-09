@@ -59,7 +59,6 @@ public class TableSectionController implements Initializable {
         }
         updateBill();
         refreshHelper();
-        updateMenuChoiceBox();
     }
 
     @FXML
@@ -81,6 +80,7 @@ public class TableSectionController implements Initializable {
 
         menuChoieceBox.setOnMouseClicked(e->{
             updateMenuChoiceBox();
+            //updateTableList();
         });
 
         if (GlobalVariables.configFile.exists()) {
@@ -129,21 +129,10 @@ public class TableSectionController implements Initializable {
                 System.out.println("Something unusual happened.");
             }
         });
-
-
         for (int i = 1; i < 11; i++) {
             countBox.getItems().add(i);
         }
         countBox.getSelectionModel().selectFirst();
-
-
-
-
-
-        //A system to get items that we add once.
-        /*menuChoieceBox.getItems().add(new Product("Su",10.50));
-        menuChoieceBox.getItems().add(new Product("Hamburger",120.50));*/
-
     }
 
 
@@ -164,10 +153,8 @@ public class TableSectionController implements Initializable {
             totalPrice += p.getPrice() * p.getCount();
 
             btn.setOnAction(e -> {
-                // System.out.println(label.getText());
                 StringTokenizer tokenizer = new StringTokenizer(label.getText());
                 String str2 = tokenizer.nextToken();
-                //System.out.println(str2);
                 for (int i = 0; i < temp.getBill().getBill().size(); i++) {
                     if (temp.getBill().getBill().get(i).getName().equals(str2)) {
                         temp.getBill().getBill().get(i).increaseCount(-1);
