@@ -36,6 +36,13 @@ public class SettingSectionController implements Initializable {
 
     @javafx.fxml.FXML
     public void addProduct(ActionEvent actionEvent) {
+        for(int i = 0 ; i < GlobalVariables.menu.size() ; i++){
+            if(nameAreaForAdding.getText().equals(GlobalVariables.menu.get(i).getName())){
+                Alert alert = new Alert(Alert.AlertType.WARNING, "This item is already occur in menu.", ButtonType.OK);
+                alert.showAndWait();
+                return;
+            }
+        }
         StringTokenizer tokenizer = new StringTokenizer(nameAreaForAdding.getText());
         if(tokenizer.countTokens()>1){
             Alert alert = new Alert(Alert.AlertType.ERROR, "Product name must be a single word. E.G : Whiskey70cl", ButtonType.OK);

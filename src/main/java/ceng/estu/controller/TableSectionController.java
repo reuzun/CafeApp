@@ -45,6 +45,7 @@ public class TableSectionController implements Initializable {
 
     @FXML
     public void addToBill(ActionEvent actionEvent) {
+
         try {
             System.out.println(Integer.parseInt(countBox.getSelectionModel().getSelectedItem().toString()));
             tableListView.getSelectionModel().getSelectedItem().getBill().addToBill(menuChoieceBox.getSelectionModel().getSelectedItem().newInstance(), Integer.parseInt(countBox.getSelectionModel().getSelectedItem().toString()));
@@ -167,6 +168,7 @@ public class TableSectionController implements Initializable {
                 }
             });
         }
+        temp.getBill().totalPrice = totalPrice;
         String price = String.format("%,-10.2f", totalPrice);
         priceText.setText(price);
     }
