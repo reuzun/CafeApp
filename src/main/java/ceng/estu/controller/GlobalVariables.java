@@ -26,7 +26,7 @@ public interface GlobalVariables {
         try (FileWriter writer = new FileWriter(configFile,false)) {
                     writer.write(tableList.size()+System.lineSeparator());
                 for(int i = 0 ; i < menu.size() ; i++){
-                    writer.write(menu.get(i).getName()+" "+menu.get(i).getPrice()+System.lineSeparator());
+                    writer.write(menu.get(i).getName()+" "+menu.get(i).getPrice()+" "+ menu.get(i).type+System.lineSeparator());
                 }
         }
         catch (Exception e) {

@@ -17,9 +17,10 @@
                <top>
                   <AnchorPane prefHeight="122.0" prefWidth="426.0" BorderPane.alignment="CENTER">
                      <children>
-                        <ChoiceBox fx:id="menuChoieceBox" layoutX="48.0" layoutY="49.0" prefWidth="150.0" />
-                        <Button layoutX="296.0" layoutY="49.0" mnemonicParsing="false" onAction="#addToBill" text="Add To Bill" />
-                        <ChoiceBox fx:id="countBox" layoutX="216.0" layoutY="49.0" prefHeight="25.0" prefWidth="57.0" />
+                        <ChoiceBox fx:id="menuChoieceBox" layoutX="148.0" layoutY="49.0" prefWidth="150.0" />
+                        <Button layoutX="402.0" layoutY="49.0" mnemonicParsing="false" onAction="#addToBill" text="Add To Bill" />
+                        <ChoiceBox fx:id="countBox" layoutX="319.0" layoutY="49.0" prefHeight="25.0" prefWidth="57.0" />
+                        <ChoiceBox fx:id="typeBox" layoutX="14.0" layoutY="49.0" prefHeight="25.0" prefWidth="106.0" />
                      </children>
                   </AnchorPane>
                </top>

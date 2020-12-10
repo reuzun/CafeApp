@@ -1,6 +1,7 @@
 package ceng.estu.controller;
 
 import ceng.estu.classes.Product;
+import ceng.estu.classes.TYPE;
 import ceng.estu.classes.Table;
 import com.jfoenix.controls.JFXButton;
 import de.jensd.fx.glyphs.testapps.GlyphsBrowser;
@@ -32,6 +33,8 @@ public class SettingSectionController implements Initializable {
     private TextField priceAreaForAdding;
     @javafx.fxml.FXML
     private TextField tableCountArea;
+    @javafx.fxml.FXML
+    private ChoiceBox<TYPE> typeBox;
 
 
     @javafx.fxml.FXML
@@ -50,7 +53,7 @@ public class SettingSectionController implements Initializable {
             alert.showAndWait();
             return;
         }
-        GlobalVariables.menu.add(new Product(nameAreaForAdding.getText(), Double.parseDouble(priceAreaForAdding.getText().replaceAll(",","."))));
+        GlobalVariables.menu.add(new Product(nameAreaForAdding.getText(), Double.parseDouble(priceAreaForAdding.getText().replaceAll(",",".")), typeBox.getSelectionModel().getSelectedItem()));
         Alert alert = new Alert(Alert.AlertType.NONE, "Product has been added.", ButtonType.OK);
         alert.setTitle("Product has been added.");
         alert.showAndWait();
@@ -94,6 +97,9 @@ public class SettingSectionController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         updateChoiceBoxes();
+        typeBox.getItems().add(TYPE.Food);
+        typeBox.getItems().add(TYPE.Drink);
+        typeBox.getSelectionModel().selectFirst();
     }
 
 

@@ -7,11 +7,13 @@ public class Product {
     private String name;
     private double price;
     private int count;
+    public TYPE type;
 
-    public Product(String name, double price) {
+    public Product(String name, double price, TYPE type) {
         this.name = name;
         this.price = price;
         count = 1;
+        this.type = type;
     }
 
     public String getName() {
@@ -35,7 +37,7 @@ public class Product {
     public int getCount(){return this.count;}
 
     public Product newInstance(){
-        return new Product(this.name,this.price);
+        return new Product(this.name,this.price,this.type);
     }
 
     @Override

@@ -2,6 +2,7 @@ package ceng.estu.controller;
 
 import ceng.estu.classes.Bill;
 import ceng.estu.classes.Product;
+import ceng.estu.classes.TYPE;
 import ceng.estu.classes.Table;
 import ceng.estu.main.Main;
 import com.jfoenix.controls.JFXButton;
@@ -41,6 +42,8 @@ public class TableSectionController implements Initializable {
     private Text priceText;
     @FXML
     private ChoiceBox countBox;
+    @FXML
+    private ChoiceBox<TYPE> typeBox;
 
 
     @FXML
@@ -79,6 +82,16 @@ public class TableSectionController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        typeBox.getItems().add(TYPE.Drink);
+        typeBox.getItems().add(TYPE.Food);
+        typeBox.getSelectionModel().selectFirst();
+
+        typeBox.setOnMouseClicked(e->{
+            menuChoieceBox.getSelectionModel().select(null);
+            countBox.getSelectionModel().select(0);
+            updateMenuChoiceBox();
+        });
+
         menuChoieceBox.setOnMouseClicked(e->{
             updateMenuChoiceBox();
             //updateTableList();
@@ -99,7 +112,7 @@ public class TableSectionController implements Initializable {
                         continue;
                     }
                     StringTokenizer tokenizer = new StringTokenizer(line);
-                    GlobalVariables.menu.add(new Product(tokenizer.nextToken(), Double.parseDouble(tokenizer.nextToken())));
+                    GlobalVariables.menu.add(new Product(tokenizer.nextToken(), Double.parseDouble(tokenizer.nextToken()),TYPE.valueOf(tokenizer.nextToken())));
                 }
             } catch (Exception e) {
             }
@@ -109,13 +122,13 @@ public class TableSectionController implements Initializable {
                 GlobalVariables.tableList.add(table);
                 tableListView.getItems().add(table);
             }
-            GlobalVariables.menu.add(new Product("Su", 10.50));
-            GlobalVariables.menu.add(new Product("Hamburger", 120.50));
+            GlobalVariables.menu.add(new Product("Su", 10.50, TYPE.Drink));
+            GlobalVariables.menu.add(new Product("Hamburger", 120.50, TYPE.Food));
             try(FileWriter writer = new FileWriter(GlobalVariables.configFile,true);){
                 writer.write(5+System.lineSeparator());
                 for(int i = 0 ; i < GlobalVariables.menu.size() ; i++){
                     Product p = GlobalVariables.menu.get(i);
-                    writer.write(p.getName()+" "+p.getPrice());
+                    writer.write(p.getName()+" "+p.getPrice() + " " + p.type);
                     writer.write(System.lineSeparator());
                 }
             }catch (Exception e){}
@@ -176,7 +189,8 @@ public class TableSectionController implements Initializable {
     private void updateMenuChoiceBox() {
         menuChoieceBox.getItems().clear();
         for (int i = 0; i < GlobalVariables.menu.size(); i++) {
-            menuChoieceBox.getItems().add(GlobalVariables.menu.get(i));
+            if(typeBox.getSelectionModel().getSelectedItem().equals(GlobalVariables.menu.get(i).type))
+                menuChoieceBox.getItems().add(GlobalVariables.menu.get(i));
         }
     }
 

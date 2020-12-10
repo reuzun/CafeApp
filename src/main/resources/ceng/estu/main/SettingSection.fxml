@@ -22,13 +22,13 @@
                   </Label>
                   <Label contentDisplay="RIGHT" layoutX="278.0" layoutY="38.0" text="Product Price" />
                   <Label contentDisplay="RIGHT" layoutX="278.0" layoutY="90.0" text="Product Price" />
-                  <Button layoutX="546.0" layoutY="38.0" mnemonicParsing="false" onAction="#addProduct" text="Add Product" />
+                  <Button layoutX="679.0" layoutY="34.0" mnemonicParsing="false" onAction="#addProduct" text="Add Product" />
                   <Button layoutX="278.0" layoutY="130.0" mnemonicParsing="false" onAction="#deleteProduct" text="Remove Product" />
-                  <Button layoutX="544.0" layoutY="86.0" mnemonicParsing="false" onAction="#changePrice" text="Change Price" />
+                  <Button layoutX="495.0" layoutY="86.0" mnemonicParsing="false" onAction="#changePrice" text="Change Price" />
                   <ChoiceBox fx:id="deleteFromMenuBoxNode" layoutX="96.0" layoutY="130.0" prefWidth="150.0" />
                   <ChoiceBox fx:id="changePriceOfSelectedProductNode" layoutX="96.0" layoutY="86.0" prefWidth="150.0" />
-                  <TextField fx:id="priceAreaForAdding" layoutX="363.0" layoutY="34.0" />
-                  <TextField fx:id="priceAreaForChanging" layoutX="363.0" layoutY="86.0" />
+                  <TextField fx:id="priceAreaForAdding" layoutX="363.0" layoutY="34.0" prefHeight="25.0" prefWidth="77.0" />
+                  <TextField fx:id="priceAreaForChanging" layoutX="363.0" layoutY="86.0" prefHeight="25.0" prefWidth="77.0" />
                   <TextField fx:id="tableCountArea" layoutX="97.0" layoutY="202.0" />
                   <Button layoutX="272.0" layoutY="202.0" mnemonicParsing="false" onAction="#adjustTableCount" text="Adjust Table Count" />
                   <Text layoutX="14.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Table Count :" wrappingWidth="129.13671875" />
@@ -39,6 +39,8 @@
                         <Font size="34.0" />
                      </font>
                   </Text>
+                  <ChoiceBox fx:id="typeBox" layoutX="544.0" layoutY="34.0" prefHeight="25.0" prefWidth="103.0" />
+                  <Text layoutX="465.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Type:" />
                </children>
             </AnchorPane>
          </bottom>
