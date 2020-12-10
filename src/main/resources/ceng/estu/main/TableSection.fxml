@@ -45,6 +45,6 @@
             </BorderPane>
          </children>
       </AnchorPane>
-      <JFXListView fx:id="tableListView" prefHeight="595.0" prefWidth="216.0" />
+      <JFXListView fx:id="tableListView" prefHeight="595.0" prefWidth="216.0" stylesheets="@listView.css" />
    </children>
 </AnchorPane>
