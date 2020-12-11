@@ -92,23 +92,13 @@ public class MusicPlayerController  implements Initializable {
 
     private void adjustSongRepository() {
         String fileURL = "musics";
-        System.out.println(fileURL);
         File file = new File(fileURL);
         for (File f : file.listFiles()) {
-            //if(!f.getName().contains("mp4"))continue;
             String name = f.getAbsolutePath();
             name = procesString(name);
             lv.getItems().add(name.substring(name.lastIndexOf("\\")+1));
         }
     }
-
-    /*private String adjustName(String name){
-        StringBuilder sb = new StringBuilder();
-        for(int i = 0 ; i < name.length() ; i++){
-            if(name.charAt(i) == '\\')
-            sb.append(name.charAt(i));
-        }
-    }*/
 
     private String procesString(String name){
         StringBuilder sb = new StringBuilder();

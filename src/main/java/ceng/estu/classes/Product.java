@@ -1,9 +1,12 @@
 package ceng.estu.classes;
 
+import java.util.ArrayList;
+
 /**
  * @author reuzun
  */
 public class Product {
+    public static ArrayList<Product> menu = new ArrayList<>();
     private String name;
     private double price;
     private int count;

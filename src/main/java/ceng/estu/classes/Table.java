@@ -1,10 +1,12 @@
 package ceng.estu.classes;
 
+import java.util.ArrayList;
+
 /**
  * @author reuzun
  */
 public class Table {
-
+    public static ArrayList<Table> tableList = new ArrayList<>();
     protected String nameOfTable;
     static int id = 0;
     private Bill bill;

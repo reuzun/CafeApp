@@ -1,27 +1,24 @@
 package ceng.estu.controller;
 
-import ceng.estu.classes.Product;
-import ceng.estu.classes.Table;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.SortedList;
-import javafx.scene.Scene;
-import javafx.scene.control.ChoiceBox;
+import static ceng.estu.classes.Product.*;
+import static ceng.estu.classes.Table.*;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
 
 /**
+ * for storing global variables about that program.
  * @author reuzun
  */
-public interface GlobalVariables {
-    File configFile = new File("config.cfg");
-    Boolean files = new File("musics\\").mkdirs();
+public final class GlobalVariables {
 
-    ArrayList<Table> tableList = new ArrayList<>();
-    ArrayList<Product> menu = new ArrayList<>();
-
+    static File configFile = new File("config.cfg");
+    static Boolean files = new File("musics\\").mkdirs();
+    /*
+    static ArrayList<Table> tableList = new ArrayList<>();
+    static ArrayList<Product> menu = new ArrayList<>();
+*/
     static void updateCFG() {
         try (FileWriter writer = new FileWriter(configFile,false)) {
                     writer.write(tableList.size()+System.lineSeparator());
@@ -33,5 +30,7 @@ public interface GlobalVariables {
 
         }
     }
+
+    private GlobalVariables(){} //for not instantiating.
 
 }

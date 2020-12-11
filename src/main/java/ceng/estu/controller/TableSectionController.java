@@ -1,8 +1,12 @@
 package ceng.estu.controller;
 
 import ceng.estu.classes.Bill;
+import static ceng.estu.classes.Product.*;
+
 import ceng.estu.classes.Product;
 import ceng.estu.classes.TYPE;
+import static ceng.estu.classes.Table.*;
+
 import ceng.estu.classes.Table;
 import ceng.estu.main.Main;
 import com.jfoenix.controls.JFXButton;
@@ -50,7 +54,6 @@ public class TableSectionController implements Initializable {
     public void addToBill(ActionEvent actionEvent) {
 
         try {
-            System.out.println(Integer.parseInt(countBox.getSelectionModel().getSelectedItem().toString()));
             tableListView.getSelectionModel().getSelectedItem().getBill().addToBill(menuChoieceBox.getSelectionModel().getSelectedItem().newInstance(), Integer.parseInt(countBox.getSelectionModel().getSelectedItem().toString()));
         } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.WARNING, "You did not select any table Please select one before. ", ButtonType.OK);
@@ -105,29 +108,29 @@ public class TableSectionController implements Initializable {
                     if(flag){
                         for (int i = 0; i < Integer.valueOf(line); i++) {
                             Table table = new Table();
-                            GlobalVariables.tableList.add(table);
+                            tableList.add(table);
                             tableListView.getItems().add(table);
                         }
                         flag = false;
                         continue;
                     }
                     StringTokenizer tokenizer = new StringTokenizer(line);
-                    GlobalVariables.menu.add(new Product(tokenizer.nextToken(), Double.parseDouble(tokenizer.nextToken()),TYPE.valueOf(tokenizer.nextToken())));
+                    menu.add(new Product(tokenizer.nextToken(), Double.parseDouble(tokenizer.nextToken()),TYPE.valueOf(tokenizer.nextToken())));
                 }
             } catch (Exception e) {
             }
         } else {
             for (int i = 0; i < 5; i++) {
                 Table table = new Table();
-                GlobalVariables.tableList.add(table);
+                tableList.add(table);
                 tableListView.getItems().add(table);
             }
-            GlobalVariables.menu.add(new Product("Su", 10.50, TYPE.Drink));
-            GlobalVariables.menu.add(new Product("Hamburger", 120.50, TYPE.Food));
+            menu.add(new Product("Su", 10.50, TYPE.Drink));
+            menu.add(new Product("Hamburger", 120.50, TYPE.Food));
             try(FileWriter writer = new FileWriter(GlobalVariables.configFile,true);){
                 writer.write(5+System.lineSeparator());
-                for(int i = 0 ; i < GlobalVariables.menu.size() ; i++){
-                    Product p = GlobalVariables.menu.get(i);
+                for(int i = 0 ; i < menu.size() ; i++){
+                    Product p = menu.get(i);
                     writer.write(p.getName()+" "+p.getPrice() + " " + p.type);
                     writer.write(System.lineSeparator());
                 }
@@ -188,17 +191,17 @@ public class TableSectionController implements Initializable {
 
     private void updateMenuChoiceBox() {
         menuChoieceBox.getItems().clear();
-        for (int i = 0; i < GlobalVariables.menu.size(); i++) {
-            if(typeBox.getSelectionModel().getSelectedItem().equals(GlobalVariables.menu.get(i).type))
-                menuChoieceBox.getItems().add(GlobalVariables.menu.get(i));
+        for (int i = 0; i < menu.size(); i++) {
+            if(typeBox.getSelectionModel().getSelectedItem().equals(menu.get(i).type))
+                menuChoieceBox.getItems().add(menu.get(i));
         }
     }
 
 
     private void updateTableList() {
         tableListView.getItems().clear();
-        for (int i = 0; i < GlobalVariables.tableList.size(); i++) {
-            tableListView.getItems().add(GlobalVariables.tableList.get(i));
+        for (int i = 0; i < tableList.size(); i++) {
+            tableListView.getItems().add(tableList.get(i));
         }
     }
 
