@@ -39,6 +39,15 @@ public class SettingSectionController implements Initializable {
 
     @javafx.fxml.FXML
     public void addProduct(ActionEvent actionEvent) {
+        try {
+            Double a = Double.valueOf(priceAreaForAdding.getText());
+        }catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please enter a number to Product price area.", ButtonType.OK);
+            alert.setTitle("Input Error.");
+            alert.showAndWait();
+            return;
+        }
+
         for(int i = 0 ; i < GlobalVariables.menu.size() ; i++){
             if(nameAreaForAdding.getText().equals(GlobalVariables.menu.get(i).getName())){
                 Alert alert = new Alert(Alert.AlertType.WARNING, "This item is already occur in menu.", ButtonType.OK);
@@ -65,6 +74,15 @@ public class SettingSectionController implements Initializable {
 
     @javafx.fxml.FXML
     public void changePrice(ActionEvent actionEvent) {
+        try {
+            Double a = Double.valueOf(priceAreaForChanging.getText());
+        }catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please enter a number to Product price area.", ButtonType.OK);
+            alert.setTitle("Input Error.");
+            alert.showAndWait();
+            return;
+        }
+
         GlobalVariables.menu.get(GlobalVariables.menu.indexOf(changePriceOfSelectedProductNode.getSelectionModel().getSelectedItem())).setPrice(Double.parseDouble(priceAreaForChanging.getText()));
         Alert alert = new Alert(Alert.AlertType.NONE, "Price has been changed.", ButtonType.OK);
         alert.setTitle("Price has been changed.");
