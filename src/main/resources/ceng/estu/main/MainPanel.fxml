@@ -65,7 +65,7 @@
       </VBox>
       <BorderPane fx:id="panel" layoutX="208.0" layoutY="-2.0" prefHeight="595.0" prefWidth="815.0">
          <center>
-            <ImageView fitHeight="479.0" fitWidth="616.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+            <ImageView fx:id="img" fitHeight="479.0" fitWidth="616.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
                <image>
                   <Image url="@../photos/eskisehir-teknik-universitesi-bilgisayar-muhendisligi.jpg" />
                </image>

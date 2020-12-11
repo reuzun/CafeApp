@@ -2,16 +2,19 @@ package ceng.estu.controller;
 
 import ceng.estu.main.Main;
 import com.jfoenix.controls.JFXButton;
+import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -41,8 +44,9 @@ public class MainPanelController implements Initializable {
     private VBox panelBox;
     @FXML
     private Label logoName;
-
     static Label staticLogo;
+    @FXML
+    private ImageView img;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -57,6 +61,27 @@ public class MainPanelController implements Initializable {
             e.printStackTrace();
         }
         logoName.textFillProperty().bind(staticLogo.textFillProperty());
+
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(3000), img);
+        fadeTransition.setFromValue(1.0f);
+        fadeTransition.setToValue(0.1f);
+        fadeTransition.setCycleCount(2);
+        fadeTransition.setAutoReverse(true);
+
+        RotateTransition rotateTransition = new RotateTransition(Duration.millis(3000), img);
+        rotateTransition.setByAngle(360);
+        rotateTransition.setCycleCount(1);
+        //rotateTransition.setAutoReverse(true);
+
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(3000), img);
+        scaleTransition.setToX(0.5f);
+        scaleTransition.setToY(0.5f);
+        scaleTransition.setCycleCount(2);
+        scaleTransition.setAutoReverse(true);
+
+        scaleTransition.play();
+        fadeTransition.play();
+        rotateTransition.play();
     }
 
     @javafx.fxml.FXML
@@ -105,12 +130,12 @@ public class MainPanelController implements Initializable {
         mainPanel.setOnMouseReleased((e) -> {
             Main.stage.setOpacity(1.0f);
         });
-        mainPanel.setOnMouseClicked(e->{
-            if(e.getClickCount() == 2){
+        mainPanel.setOnMouseClicked(e -> {
+            if (e.getClickCount() == 2) {
                 Main.stage.setIconified(true);
             }
         });
-        mainPanel.setOnZoom(e->{
+        mainPanel.setOnZoom(e -> {
             Main.stage.setIconified(true);
         });
 
