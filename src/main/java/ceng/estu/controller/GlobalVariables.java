@@ -14,7 +14,7 @@ import java.util.ArrayList;
 public final class GlobalVariables {
 
     static File configFile = new File("config.cfg");
-    static Boolean files = new File("musics\\").mkdirs();
+    static Boolean files = new File("musics"+File.separator).mkdirs();
     /*
     static ArrayList<Table> tableList = new ArrayList<>();
     static ArrayList<Product> menu = new ArrayList<>();

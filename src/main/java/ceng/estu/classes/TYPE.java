@@ -6,5 +6,4 @@ package ceng.estu.classes;
 public enum TYPE {
     Drink,
     Food;
-
 }

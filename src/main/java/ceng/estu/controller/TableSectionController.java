@@ -85,8 +85,9 @@ public class TableSectionController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        typeBox.getItems().add(TYPE.Drink);
         typeBox.getItems().add(TYPE.Food);
+        typeBox.getItems().add(TYPE.Drink);
+
         typeBox.getSelectionModel().selectFirst();
 
         typeBox.setOnMouseClicked(e->{

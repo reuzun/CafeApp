@@ -2,3 +2,9 @@
     -fx-background-color: linear-gradient(#328BDB 0%, #207BCF 25%, #1973C9 75%, #0A65BF 100%);
     -fx-text-fill: white;
 }
+
+.list-cell{
+    -fx-font-weight: 900;
+    -fx-font-family: Arial;
+}
+

@@ -1,0 +1,16 @@
+
+.choice-box .menu-item > .label {
+    -fx-font-weight: 900;
+}
+
+.choice-box {
+    -fx-font-weight: 900;
+}
+
+.choice-box > .label {
+    -fx-font-weight: 900;
+}
+
+.choice-box:hover {
+    -fx-scale-y: 1.1;
+}

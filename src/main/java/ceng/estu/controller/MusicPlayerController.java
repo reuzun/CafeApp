@@ -12,10 +12,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.media.AudioTrack;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
@@ -31,6 +34,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.Stack;
 
 public class MusicPlayerController  implements Initializable {
    /* @FXML
@@ -57,6 +61,8 @@ public class MusicPlayerController  implements Initializable {
     @FXML
     private FontAwesomeIcon playButton;
 
+    private Stack<String> playedSongs = new Stack<>();
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -72,7 +78,8 @@ public class MusicPlayerController  implements Initializable {
     }
 
     @javafx.fxml.FXML
-    public void listenLastSong(ActionEvent actionEvent) {
+    public void listenLastSong(ActionEvent actionEvent) throws MalformedURLException {
+        playLastSong();
     }
 
     @javafx.fxml.FXML
@@ -95,8 +102,14 @@ public class MusicPlayerController  implements Initializable {
         File file = new File(fileURL);
         for (File f : file.listFiles()) {
             String name = f.getAbsolutePath();
-            name = procesString(name);
-            lv.getItems().add(name.substring(name.lastIndexOf("\\")+1));
+            if(System.getProperty("os.name").contains("Windows")) {
+                name = procesString(name);
+                lv.getItems().add(name.substring(name.lastIndexOf("\\") + 1));
+            }
+            else{
+                name = name.substring(name.lastIndexOf("/")+1);
+                lv.getItems().add(name);
+            }
         }
     }
 
@@ -122,16 +135,29 @@ public class MusicPlayerController  implements Initializable {
 
     @FXML
     public void startApplication(MouseEvent event) throws MalformedURLException {
+
         if (event.getClickCount() == 2) {
             MainPanelController.staticLogo.setTextFill(Color.valueOf("#0f4ddb"));
-            File musicFile = new File("musics" + "\\\\" + lv.getSelectionModel().getSelectedItem());
-            nameOfSong.setText(String.valueOf(lv.getSelectionModel().getSelectedItem()));
-            Media music = new Media(musicFile.toURI().toURL().toString());
+            String str2 = (String) lv.getSelectionModel().getSelectedItem();
+            if(str2==null)return; //if selects null then get out of method.
+            File musicFile = new File("musics" + File.separator + str2);
 
+            Media music = new Media(musicFile.toURI().toURL().toString());;
+            nameOfSong.setText(String.valueOf(lv.getSelectionModel().getSelectedItem()));
 
             if (null != player && player.getStatus() == MediaPlayer.Status.PLAYING)
                 player.pause();
-            player = new MediaPlayer(music);
+
+            try {
+                player = new MediaPlayer(music);
+            }catch(Exception e){
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Please run this command on terminal \n" +
+                        "sudo apt-get install ubuntu-restricted-extras", ButtonType.OK);
+                alert.setTitle("Your System is unable to run mp3/mp4.");
+                alert.showAndWait();
+                return;
+            }
+
             playButton.setIconName("PAUSE");
             if(voiceFlag) {
                 player.setVolume(0.25);
@@ -163,7 +189,10 @@ public class MusicPlayerController  implements Initializable {
                         playingTimeSlider.setValue(player.getCurrentTime().toMillis());
                     }
                 });
+
                 player.play();
+                playedSongs.push(player.getMedia().getSource().substring(player.getMedia().getSource().lastIndexOf("/")+1));
+                //System.out.println(playedSongs.peek());
                 //StaticController.Amblem.setFill(Color.rgb(172,60,60,1));
                 playingTimeSlider.valueProperty().addListener(ov -> {
                     if (playingTimeSlider.isValueChanging()) {
@@ -189,17 +218,40 @@ public class MusicPlayerController  implements Initializable {
 
     }
 
-    private void playRandomMusic() throws MalformedURLException {
+    public void playLastSong() throws MalformedURLException {
         MainPanelController.staticLogo.setTextFill(Color.valueOf("#0f4ddb"));
-        int random = (int) (Math.random() * lv.getItems().size());
-        lv.getSelectionModel().select(random);
-        File musicFile = new File("musics" + "\\" + lv.getSelectionModel().getSelectedItem() );
-        nameOfSong.setText(String.valueOf(lv.getSelectionModel().getSelectedItem()));
+        String str = "";
+        try {
+            str = playedSongs.pop();
+        }catch(Exception e){
+        }
+        //int random = (int) (Math.random() * lv.getItems().size());
+        if(playedSongs.size()==0){
+            lv.getSelectionModel().select(str);
+        }else
+            lv.getSelectionModel().select(playedSongs.pop());
+
+
+
+        File musicFile = new File("musics" + File.separator + lv.getSelectionModel().getSelectedItem());
+
+
+
+        nameOfSong.setText(String.valueOf(lv.getSelectionModel().getSelectedItem()));//setting up text
         Media music = new Media(musicFile.toURI().toURL().toString());
 
         if (null != player && player.getStatus() == MediaPlayer.Status.PLAYING)
             player.pause();
-        player = new MediaPlayer(music);
+
+        try {
+            player = new MediaPlayer(music);
+        }catch(Exception e){
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please run this command on terminal \n" +
+                    "sudo apt-get install ubuntu-restricted-extras", ButtonType.OK);
+            alert.setTitle("Your System is unable to run mp3/mp4.");
+            alert.showAndWait();
+            return;
+        }
         player.setVolume(volumeSlider.getValue());
         player.setOnReady(new Runnable() {
             @Override
@@ -237,7 +289,91 @@ public class MusicPlayerController  implements Initializable {
 
                 });
                 player.play();
-                //StaticController.Amblem.setFill(Color.rgb(172,60,60,1));
+                playedSongs.push(player.getMedia().getSource().substring(player.getMedia().getSource().lastIndexOf("/")+1));
+
+                player.setOnEndOfMedia(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            playRandomMusic();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+            }
+        });
+
+    }
+
+    private void playRandomMusic() throws MalformedURLException {
+        MainPanelController.staticLogo.setTextFill(Color.valueOf("#0f4ddb"));
+        int random = (int) (Math.random() * lv.getItems().size());
+        lv.getSelectionModel().select(random);
+
+        if(lv.getSelectionModel().getSelectedItem().toString().equals(playedSongs.peek())) {
+            playRandomMusic();
+            return;
+        }
+
+        File musicFile = new File("musics" + File.separator + lv.getSelectionModel().getSelectedItem());
+
+
+
+        nameOfSong.setText(String.valueOf(lv.getSelectionModel().getSelectedItem()));//setting up text
+        Media music = new Media(musicFile.toURI().toURL().toString());
+
+        if (null != player && player.getStatus() == MediaPlayer.Status.PLAYING)
+            player.pause();
+
+        try {
+            player = new MediaPlayer(music);
+        }catch(Exception e){
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Please run this command on terminal \n" +
+                    "sudo apt-get install ubuntu-restricted-extras", ButtonType.OK);
+            alert.setTitle("Your System is unable to run mp3/mp4.");
+            alert.showAndWait();
+            return;
+        }
+        player.setVolume(volumeSlider.getValue());
+        player.setOnReady(new Runnable() {
+            @Override
+            public void run() {
+                player.setStartTime(Duration.ZERO);
+                img.setMediaPlayer(player);
+
+
+
+                //VOLUME PROPERTİES
+                volumeSlider.setMin(0);
+                volumeSlider.setMax(0.5);
+
+                VolumeText.setText(String.valueOf((int)(player.getVolume() * 100*2)));
+
+                volumeSlider.valueProperty().addListener(evs -> {
+                    player.setVolume(volumeSlider.getValue());
+                    VolumeText.setText(String.valueOf((int)(volumeSlider.getValue() * 100 *2)));
+
+                });
+
+                playingTimeSlider.setMax(player.getStopTime().toMillis());
+                player.currentTimeProperty().addListener(ev -> {
+                    remainingTime.setText(String.valueOf((int) (player.getStopTime().toSeconds() - player.getCurrentTime().toSeconds())));
+                    playingTimeSlider.valueProperty().setValue(player.getCurrentTime().toMillis());
+                    if (!playingTimeSlider.isValueChanging()) {
+                        playingTimeSlider.setValue(player.getCurrentTime().toMillis());
+                    }
+                });
+
+                playingTimeSlider.valueProperty().addListener(ov -> {
+                    if (playingTimeSlider.isValueChanging()) {
+                        player.seek(Duration.millis(new Duration(playingTimeSlider.getValue()).toMillis()));
+                    }
+
+                });
+                player.play();
+                playedSongs.push(player.getMedia().getSource().substring(player.getMedia().getSource().lastIndexOf("/")+1));
+
                 player.setOnEndOfMedia(new Runnable() {
                     @Override
                     public void run() {

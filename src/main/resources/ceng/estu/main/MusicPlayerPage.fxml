@@ -72,7 +72,7 @@
                <Slider fx:id="volumeSlider" layoutX="795.0" layoutY="480.0" orientation="VERTICAL" prefHeight="110.0" prefWidth="14.0" />
                <Text fx:id="VolumeText" layoutX="791.0" layoutY="465.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
                <Text fx:id="remainingTime" layoutX="729.0" layoutY="465.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-               <Text fx:id="nameOfSong" layoutX="273.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="349.6">
+               <Text fx:id="nameOfSong" layoutX="300.0" layoutY="32.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="349.6">
                   <font>
                      <Font name="System Bold" size="20.0" />
                   </font></Text>
