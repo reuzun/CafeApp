@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="mainPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="595.0" prefWidth="854.0" stylesheets="@Table.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ceng.estu.controller.TableSectionController">
+<AnchorPane fx:id="mainPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="595.0" prefWidth="854.0" stylesheets="@../css/Table.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ceng.estu.controller.TableSectionController">
    <children>
       <AnchorPane layoutX="221.0" prefHeight="595.0" prefWidth="637.0">
          <children>
@@ -45,6 +45,6 @@
             </BorderPane>
          </children>
       </AnchorPane>
-      <JFXListView fx:id="tableListView" prefHeight="595.0" prefWidth="216.0" stylesheets="@listView.css" />
+      <JFXListView fx:id="tableListView" prefHeight="595.0" prefWidth="216.0" stylesheets="@../css/listView.css" />
    </children>
 </AnchorPane>
