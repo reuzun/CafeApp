@@ -16,6 +16,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.media.AudioTrack;
@@ -62,6 +63,18 @@ public class MusicPlayerController  implements Initializable {
     private FontAwesomeIcon playButton;
 
     private Stack<String> playedSongs = new Stack<>();
+    @FXML
+    private AnchorPane mainPanel;
+    @FXML
+    private StackPane stackinthepanel;
+    @FXML
+    private ImageView imgView;
+    @FXML
+    private AnchorPane musicpanel;
+    @FXML
+    private JFXButton closeButton;
+    @FXML
+    private StackPane imgStackPane;
 
 
     @Override
@@ -70,6 +83,7 @@ public class MusicPlayerController  implements Initializable {
             adjustSongRepository();
         } catch (Exception e) {
         }
+        img.toFront();
     }
 
     @javafx.fxml.FXML
@@ -167,7 +181,13 @@ public class MusicPlayerController  implements Initializable {
             }
             player.setOnReady(() -> {
                 player.setStartTime(Duration.ZERO);
-                img.setMediaPlayer(player);
+
+                if(player.getMedia().getSource().contains(".mp3") || player.getMedia().getSource().contains(".wav") ) {
+                    imgView.toFront();
+                }else {
+                    img.setMediaPlayer(player);
+                    img.toFront();
+                }
 
                 //VOLUME PROPERTİES
                 volumeSlider.setMin(0);
@@ -259,6 +279,12 @@ public class MusicPlayerController  implements Initializable {
                 player.setStartTime(Duration.ZERO);
                 img.setMediaPlayer(player);
 
+                if(player.getMedia().getSource().contains(".mp3") || player.getMedia().getSource().contains(".wav") ) {
+                    imgView.toFront();
+                }else {
+                    img.setMediaPlayer(player);
+                    img.toFront();
+                }
 
 
                 //VOLUME PROPERTİES
@@ -342,7 +368,12 @@ public class MusicPlayerController  implements Initializable {
                 player.setStartTime(Duration.ZERO);
                 img.setMediaPlayer(player);
 
-
+                if(player.getMedia().getSource().contains(".mp3") || player.getMedia().getSource().contains(".wav") ) {
+                    imgView.toFront();
+                }else {
+                    img.setMediaPlayer(player);
+                    img.toFront();
+                }
 
                 //VOLUME PROPERTİES
                 volumeSlider.setMin(0);
