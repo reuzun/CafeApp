@@ -37,7 +37,7 @@ import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.Stack;
 
-public class MusicPlayerController  implements Initializable {
+public class MusicPlayerController implements Initializable {
    /* @FXML
     public AnchorPane mainPanel;
 
@@ -99,12 +99,11 @@ public class MusicPlayerController  implements Initializable {
     @javafx.fxml.FXML
     public void startMusic(ActionEvent actionEvent) {
 
-        if(player.getStatus() == MediaPlayer.Status.PLAYING) {
-            MainPanelController.staticLogo.setTextFill((Color.color(0,0,0,1)));
+        if (player.getStatus() == MediaPlayer.Status.PLAYING) {
+            MainPanelController.staticLogo.setTextFill((Color.color(0, 0, 0, 1)));
             player.pause();
             playButton.setIconName("PLAY");
-        }
-        else {
+        } else {
             MainPanelController.staticLogo.setTextFill(Color.valueOf("#0f4ddb"));
             player.play();
             playButton.setIconName("PAUSE");
@@ -116,22 +115,21 @@ public class MusicPlayerController  implements Initializable {
         File file = new File(fileURL);
         for (File f : file.listFiles()) {
             String name = f.getAbsolutePath();
-            if(System.getProperty("os.name").contains("Windows")) {
+            if (System.getProperty("os.name").contains("Windows")) {
                 name = procesString(name);
                 lv.getItems().add(name.substring(name.lastIndexOf("\\") + 1));
-            }
-            else{
-                name = name.substring(name.lastIndexOf("/")+1);
+            } else {
+                name = name.substring(name.lastIndexOf("/") + 1);
                 lv.getItems().add(name);
             }
         }
     }
 
-    private String procesString(String name){
+    private String procesString(String name) {
         StringBuilder sb = new StringBuilder();
-        for(int i = 0 ;i < name.toCharArray().length ; i++){
-            if(name.charAt(i)=='\\' && name.charAt(i+1) != '\\')sb.append("\\\\");
-            else sb.append(String.valueOf((char)name.charAt(i)));
+        for (int i = 0; i < name.toCharArray().length; i++) {
+            if (name.charAt(i) == '\\' && name.charAt(i + 1) != '\\') sb.append("\\\\");
+            else sb.append(String.valueOf((char) name.charAt(i)));
         }
         name = sb.toString();
         return name;
@@ -153,10 +151,19 @@ public class MusicPlayerController  implements Initializable {
         if (event.getClickCount() == 2) {
             MainPanelController.staticLogo.setTextFill(Color.valueOf("#0f4ddb"));
             String str2 = (String) lv.getSelectionModel().getSelectedItem();
-            if(str2==null)return; //if selects null then get out of method.
+            if (str2 == null) return; //if selects null then get out of method.
             File musicFile = new File("musics" + File.separator + str2);
+            Media music;
+            try {
+                 music = new Media(musicFile.toURI().toURL().toString());
+            } catch (Exception exception) {
+                Alert alert = new Alert(Alert.AlertType.ERROR, "Unsupported file format."
+                        , ButtonType.OK);
+                alert.setTitle("Error.");
+                alert.showAndWait();
+                return;
+            }
 
-            Media music = new Media(musicFile.toURI().toURL().toString());;
             nameOfSong.setText(String.valueOf(lv.getSelectionModel().getSelectedItem()));
 
             if (null != player && player.getStatus() == MediaPlayer.Status.PLAYING)
@@ -164,7 +171,7 @@ public class MusicPlayerController  implements Initializable {
 
             try {
                 player = new MediaPlayer(music);
-            }catch(Exception e){
+            } catch (Exception e) {
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Please run this command on terminal \n" +
                         "sudo apt-get install ubuntu-restricted-extras", ButtonType.OK);
                 alert.setTitle("Your System is unable to run mp3/mp4.");
@@ -173,18 +180,18 @@ public class MusicPlayerController  implements Initializable {
             }
 
             playButton.setIconName("PAUSE");
-            if(voiceFlag) {
+            if (voiceFlag) {
                 player.setVolume(0.25);
                 voiceFlag = false;
-            }else {
+            } else {
                 player.setVolume(volumeSlider.getValue());
             }
             player.setOnReady(() -> {
                 player.setStartTime(Duration.ZERO);
 
-                if(player.getMedia().getSource().contains(".mp3") || player.getMedia().getSource().contains(".wav") ) {
+                if (player.getMedia().getSource().contains(".mp3") || player.getMedia().getSource().contains(".wav")) {
                     imgView.toFront();
-                }else {
+                } else {
                     img.setMediaPlayer(player);
                     img.toFront();
                 }
@@ -193,11 +200,11 @@ public class MusicPlayerController  implements Initializable {
                 volumeSlider.setMin(0);
                 volumeSlider.setMax(0.5);
                 volumeSlider.setValue(player.getVolume());
-                VolumeText.setText(String.valueOf((int) (volumeSlider.getValue() * 100*2)));
+                VolumeText.setText(String.valueOf((int) (volumeSlider.getValue() * 100 * 2)));
 
                 volumeSlider.valueProperty().addListener(evs -> {
                     player.setVolume(volumeSlider.getValue());
-                    VolumeText.setText(String.valueOf((int) (volumeSlider.getValue() * 100*2)));
+                    VolumeText.setText(String.valueOf((int) (volumeSlider.getValue() * 100 * 2)));
 
                 });
 
@@ -211,7 +218,7 @@ public class MusicPlayerController  implements Initializable {
                 });
 
                 player.play();
-                playedSongs.push(player.getMedia().getSource().substring(player.getMedia().getSource().lastIndexOf("/")+1));
+                playedSongs.push(player.getMedia().getSource().substring(player.getMedia().getSource().lastIndexOf("/") + 1));
                 //System.out.println(playedSongs.peek());
                 //StaticController.Amblem.setFill(Color.rgb(172,60,60,1));
                 playingTimeSlider.valueProperty().addListener(ov -> {
@@ -243,29 +250,36 @@ public class MusicPlayerController  implements Initializable {
         String str = "";
         try {
             str = playedSongs.pop();
-        }catch(Exception e){
+        } catch (Exception e) {
         }
         //int random = (int) (Math.random() * lv.getItems().size());
-        if(playedSongs.size()==0){
+        if (playedSongs.size() == 0) {
             lv.getSelectionModel().select(str);
-        }else
+        } else
             lv.getSelectionModel().select(playedSongs.pop());
-
 
 
         File musicFile = new File("musics" + File.separator + lv.getSelectionModel().getSelectedItem());
 
 
-
         nameOfSong.setText(String.valueOf(lv.getSelectionModel().getSelectedItem()));//setting up text
-        Media music = new Media(musicFile.toURI().toURL().toString());
+        Media music;
+        try {
+            music = new Media(musicFile.toURI().toURL().toString());
+        } catch (Exception exception) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Unsupported file format."
+                    , ButtonType.OK);
+            alert.setTitle("Error.");
+            alert.showAndWait();
+            return;
+        }
 
         if (null != player && player.getStatus() == MediaPlayer.Status.PLAYING)
             player.pause();
 
         try {
             player = new MediaPlayer(music);
-        }catch(Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Please run this command on terminal \n" +
                     "sudo apt-get install ubuntu-restricted-extras", ButtonType.OK);
             alert.setTitle("Your System is unable to run mp3/mp4.");
@@ -279,9 +293,9 @@ public class MusicPlayerController  implements Initializable {
                 player.setStartTime(Duration.ZERO);
                 img.setMediaPlayer(player);
 
-                if(player.getMedia().getSource().contains(".mp3") || player.getMedia().getSource().contains(".wav") ) {
+                if (player.getMedia().getSource().contains(".mp3") || player.getMedia().getSource().contains(".wav")) {
                     imgView.toFront();
-                }else {
+                } else {
                     img.setMediaPlayer(player);
                     img.toFront();
                 }
@@ -291,11 +305,11 @@ public class MusicPlayerController  implements Initializable {
                 volumeSlider.setMin(0);
                 volumeSlider.setMax(0.5);
 
-                VolumeText.setText(String.valueOf((int)(player.getVolume() * 100*2)));
+                VolumeText.setText(String.valueOf((int) (player.getVolume() * 100 * 2)));
 
                 volumeSlider.valueProperty().addListener(evs -> {
                     player.setVolume(volumeSlider.getValue());
-                    VolumeText.setText(String.valueOf((int)(volumeSlider.getValue() * 100 *2)));
+                    VolumeText.setText(String.valueOf((int) (volumeSlider.getValue() * 100 * 2)));
 
                 });
 
@@ -315,7 +329,7 @@ public class MusicPlayerController  implements Initializable {
 
                 });
                 player.play();
-                playedSongs.push(player.getMedia().getSource().substring(player.getMedia().getSource().lastIndexOf("/")+1));
+                playedSongs.push(player.getMedia().getSource().substring(player.getMedia().getSource().lastIndexOf("/") + 1));
 
                 player.setOnEndOfMedia(new Runnable() {
                     @Override
@@ -337,7 +351,7 @@ public class MusicPlayerController  implements Initializable {
         int random = (int) (Math.random() * lv.getItems().size());
         lv.getSelectionModel().select(random);
 
-        if(lv.getSelectionModel().getSelectedItem().toString().equals(playedSongs.peek())) {
+        if (lv.getSelectionModel().getSelectedItem().toString().equals(playedSongs.peek())) {
             playRandomMusic();
             return;
         }
@@ -345,16 +359,24 @@ public class MusicPlayerController  implements Initializable {
         File musicFile = new File("musics" + File.separator + lv.getSelectionModel().getSelectedItem());
 
 
-
         nameOfSong.setText(String.valueOf(lv.getSelectionModel().getSelectedItem()));//setting up text
-        Media music = new Media(musicFile.toURI().toURL().toString());
+        Media music;
+        try {
+            music = new Media(musicFile.toURI().toURL().toString());
+        } catch (Exception exception) {
+            Alert alert = new Alert(Alert.AlertType.ERROR, "Unsupported file format."
+                    , ButtonType.OK);
+            alert.setTitle("Error.");
+            alert.showAndWait();
+            return;
+        }
 
         if (null != player && player.getStatus() == MediaPlayer.Status.PLAYING)
             player.pause();
 
         try {
             player = new MediaPlayer(music);
-        }catch(Exception e){
+        } catch (Exception e) {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Please run this command on terminal \n" +
                     "sudo apt-get install ubuntu-restricted-extras", ButtonType.OK);
             alert.setTitle("Your System is unable to run mp3/mp4.");
@@ -368,22 +390,26 @@ public class MusicPlayerController  implements Initializable {
                 player.setStartTime(Duration.ZERO);
                 img.setMediaPlayer(player);
 
-                if(player.getMedia().getSource().contains(".mp3") || player.getMedia().getSource().contains(".wav") ) {
+                if (player.getMedia().getSource().contains(".mp3") || player.getMedia().getSource().contains(".wav") ||
+                        player.getMedia().getSource().contains(".aif") || player.getMedia().getSource().contains(".aiff") ||
+                        player.getMedia().getSource().contains(".m4a")
+                ) {
                     imgView.toFront();
-                }else {
+                } else {
                     img.setMediaPlayer(player);
                     img.toFront();
                 }
+
 
                 //VOLUME PROPERTİES
                 volumeSlider.setMin(0);
                 volumeSlider.setMax(0.5);
 
-                VolumeText.setText(String.valueOf((int)(player.getVolume() * 100*2)));
+                VolumeText.setText(String.valueOf((int) (player.getVolume() * 100 * 2)));
 
                 volumeSlider.valueProperty().addListener(evs -> {
                     player.setVolume(volumeSlider.getValue());
-                    VolumeText.setText(String.valueOf((int)(volumeSlider.getValue() * 100 *2)));
+                    VolumeText.setText(String.valueOf((int) (volumeSlider.getValue() * 100 * 2)));
 
                 });
 
@@ -403,7 +429,7 @@ public class MusicPlayerController  implements Initializable {
 
                 });
                 player.play();
-                playedSongs.push(player.getMedia().getSource().substring(player.getMedia().getSource().lastIndexOf("/")+1));
+                playedSongs.push(player.getMedia().getSource().substring(player.getMedia().getSource().lastIndexOf("/") + 1));
 
                 player.setOnEndOfMedia(new Runnable() {
                     @Override
