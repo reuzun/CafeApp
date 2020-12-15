@@ -4,6 +4,7 @@
 
 .label{
     -fx-font-family: "Courier New";
+    -fx-font-weight: 900;
 }
 
 .button:hover {

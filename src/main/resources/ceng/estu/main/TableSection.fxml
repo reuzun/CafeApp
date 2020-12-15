@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXListView?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
@@ -11,23 +16,26 @@
 
 <AnchorPane fx:id="mainPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="595.0" prefWidth="854.0" stylesheets="@../css/Table.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ceng.estu.controller.TableSectionController">
    <children>
-      <AnchorPane layoutX="221.0" prefHeight="595.0" prefWidth="637.0">
+      <AnchorPane layoutX="216.0" prefHeight="595.0" prefWidth="643.0">
          <children>
-            <BorderPane layoutX="1.0" layoutY="-1.0" prefHeight="595.0" prefWidth="637.0">
+            <BorderPane layoutX="-5.0" layoutY="-1.0" prefHeight="602.0" prefWidth="652.0" style="-fx-background-color: #959090;">
                <top>
                   <AnchorPane prefHeight="122.0" prefWidth="426.0" BorderPane.alignment="CENTER">
                      <children>
-                        <ChoiceBox fx:id="menuChoieceBox" layoutX="148.0" layoutY="49.0" prefWidth="150.0" />
-                        <Button layoutX="402.0" layoutY="49.0" mnemonicParsing="false" onAction="#addToBill" text="Add To Bill" />
-                        <ChoiceBox fx:id="countBox" layoutX="319.0" layoutY="49.0" prefHeight="25.0" prefWidth="57.0" />
-                        <ChoiceBox fx:id="typeBox" layoutX="14.0" layoutY="49.0" prefHeight="25.0" prefWidth="106.0" />
+                        <ChoiceBox fx:id="menuChoieceBox" layoutX="167.0" layoutY="49.0" prefWidth="150.0" />
+                        <Button layoutX="424.0" layoutY="49.0" mnemonicParsing="false" onAction="#addToBill" text="Add To Bill" />
+                        <ChoiceBox fx:id="countBox" layoutX="340.0" layoutY="49.0" prefHeight="25.0" prefWidth="57.0" />
+                        <ChoiceBox fx:id="typeBox" layoutX="42.0" layoutY="49.0" prefHeight="25.0" prefWidth="106.0" />
                      </children>
                   </AnchorPane>
                </top>
                <center>
-                  <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+                  <AnchorPane prefHeight="492.0" prefWidth="637.0" BorderPane.alignment="CENTER">
                      <children>
-                        <VBox fx:id="BillVBox" layoutX="29.0" layoutY="24.0" prefHeight="335.0" prefWidth="315.0" />
+                        <VBox fx:id="BillVBox" layoutX="29.0" layoutY="24.0" prefHeight="335.0" prefWidth="315.0" spacing="5.0">
+                           <effect>
+                              <InnerShadow />
+                           </effect></VBox>
                         <Button layoutX="464.0" layoutY="343.0" mnemonicParsing="false" onAction="#payBill" prefHeight="107.0" prefWidth="153.0" text="PAY" />
                         <Text layoutX="29.0" layoutY="405.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Price : " wrappingWidth="180.13671875">
                            <font>
@@ -45,6 +53,19 @@
             </BorderPane>
          </children>
       </AnchorPane>
-      <JFXListView fx:id="tableListView" prefHeight="595.0" prefWidth="216.0" stylesheets="@../css/listView.css" />
+      <JFXListView fx:id="tableListView" prefHeight="602.0" prefWidth="216.0" stylesheets="@../css/listView2.css">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <effect>
+            <Lighting diffuseConstant="0.86" specularConstant="0.23" specularExponent="15.81" surfaceScale="1.38">
+               <bumpInput>
+                  <Shadow height="112.92" radius="35.205" width="29.9" />
+               </bumpInput>
+               <light>
+                  <Light.Distant />
+               </light>
+            </Lighting>
+         </effect></JFXListView>
    </children>
 </AnchorPane>

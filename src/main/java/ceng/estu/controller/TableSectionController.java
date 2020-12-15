@@ -159,14 +159,16 @@ public class TableSectionController implements Initializable {
         double totalPrice = 0;
         Table temp = tableListView.getSelectionModel().getSelectedItem();
         for (Product p : temp.getBill().getBill()) {
-            String str = String.format("%-12s %-6.2f x%-4d", p.getName(), p.getPrice(), p.getCount());
+            String str = String.format("%-12s %-8.2f x%-6d", p.getName(), p.getPrice(), p.getCount());
             Label label = new Label(str);
-            label.setPrefWidth(700);
+            label.setMinWidth(600);
+            label.setPrefWidth(1200);
             label.setContentDisplay(ContentDisplay.RIGHT);
             Button btn = new Button("Remove x1");
             label.setGraphic(btn);
             label.setStyle("-fx-font-family: monospaced");
-            label.setFont(new Font(14));
+            //label.setStyle("-fx-font-weight: 900");
+            label.setFont(new Font(15.5));
             BillVBox.getChildren().add(label);
             totalPrice += p.getPrice() * p.getCount();
 

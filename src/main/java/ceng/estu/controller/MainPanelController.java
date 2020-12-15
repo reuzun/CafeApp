@@ -87,25 +87,25 @@ public class MainPanelController implements Initializable {
     @javafx.fxml.FXML
     public void getSettingsSection(ActionEvent actionEvent) {
         panel.setCenter(settingScene.getRoot());
-        panelBox.setStyle("-fx-background-color: #0d73c4");
+        panelBox.setStyle("-fx-background-color: #a5628e");
     }
 
     @javafx.fxml.FXML
     public void getHowToUse(ActionEvent actionEvent) {
         panel.setCenter(howToUseScene.getRoot());
-        panelBox.setStyle("-fx-background-color: #346d50");
+        panelBox.setStyle("-fx-background-color: #4c363a");
     }
 
     @javafx.fxml.FXML
     public void getTablesSection(ActionEvent actionEvent) {
         panel.setCenter(tableScene.getRoot());
-        panelBox.setStyle("-fx-background-color: #b48484");
+        panelBox.setStyle("-fx-background-color: #ffffff");
     }
 
     @FXML
     public void getMusicPlayer(ActionEvent actionEvent) {
         panel.setCenter(musicPlayerPage.getRoot());
-        panelBox.setStyle("-fx-background-color: #ffffff");
+        panelBox.setStyle("-fx-background-color: #b48484");
     }
 
     private void makeStageDrageable() {
