@@ -77,7 +77,7 @@
                   <font>
                      <Font name="System Bold" size="20.0" />
                   </font></Text>
-               <JFXSlider fx:id="playingTimeSlider" layoutX="293.0" layoutY="454.0" prefHeight="14.0" prefWidth="427.0" />
+               <JFXSlider fx:id="playingTimeSlider" cache="true" layoutX="291.0" layoutY="453.0" prefHeight="14.0" prefWidth="427.0" snapToTicks="true" value="0.1" viewOrder="5.0" />
                <JFXButton fx:id="closeButton" layoutX="567.0" layoutY="-1.0" onAction="#handleCloseAction" text=" " />
                <StackPane fx:id="imgStackPane" layoutX="204.0" layoutY="57.0" prefHeight="150.0" prefWidth="200.0">
                   <children>
