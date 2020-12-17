@@ -36,10 +36,6 @@ public class MainPanelController implements Initializable {
     private double yOffset = 0;
     @javafx.fxml.FXML
     private BorderPane panel;
-    @javafx.fxml.FXML
-    private JFXButton closeButton1;
-    @javafx.fxml.FXML
-    private JFXButton closeButton;
     @FXML
     private VBox panelBox;
     @FXML
@@ -135,10 +131,6 @@ public class MainPanelController implements Initializable {
                 Main.stage.setIconified(true);
             }
         });
-        mainPanel.setOnZoom(e -> {
-            Main.stage.setIconified(true);
-        });
-
     }
 
     @javafx.fxml.FXML

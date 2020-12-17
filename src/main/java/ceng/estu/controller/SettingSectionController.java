@@ -13,10 +13,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
-
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.Set;
 import java.util.StringTokenizer;
 
 /**
@@ -43,7 +41,7 @@ public class SettingSectionController implements Initializable{
     @javafx.fxml.FXML
     public void addProduct(ActionEvent actionEvent) {
         try {
-            Double a = Double.valueOf(priceAreaForAdding.getText().replace(",","."));
+            Double.valueOf(priceAreaForAdding.getText().replace(",","."));//for checking is it number in the price area
         }catch (Exception e){
             Alert alert = new Alert(Alert.AlertType.ERROR, "Please enter a number to Product price area.", ButtonType.OK);
             alert.setTitle("Input Error.");
@@ -51,8 +49,8 @@ public class SettingSectionController implements Initializable{
             return;
         }
 
-        for(int i = 0 ; i < menu.size() ; i++){
-            if(nameAreaForAdding.getText().equals(menu.get(i).getName())){
+        for (Product product : menu) {
+            if (nameAreaForAdding.getText().equals(product.getName())) {
                 Alert alert = new Alert(Alert.AlertType.WARNING, "This item is already occur in menu.", ButtonType.OK);
                 alert.showAndWait();
                 return;
@@ -97,7 +95,7 @@ public class SettingSectionController implements Initializable{
 
     @javafx.fxml.FXML
     public void deleteProduct(ActionEvent actionEvent) {
-        menu.remove(menu.indexOf(deleteFromMenuBoxNode.getSelectionModel().getSelectedItem()));
+        menu.remove(deleteFromMenuBoxNode.getSelectionModel().getSelectedItem());
         Alert alert = new Alert(Alert.AlertType.NONE, "Item has been removed.", ButtonType.OK);
         alert.setTitle("Item has been removed.");
         alert.showAndWait();
@@ -109,9 +107,9 @@ public class SettingSectionController implements Initializable{
     private void updateChoiceBoxes() {
         deleteFromMenuBoxNode.getItems().clear();
         changePriceOfSelectedProductNode.getItems().clear();
-        for (int i = 0; i < menu.size(); i++) {
-            deleteFromMenuBoxNode.getItems().add(menu.get(i));
-            changePriceOfSelectedProductNode.getItems().add(menu.get(i));
+        for (Product product : menu) {
+            deleteFromMenuBoxNode.getItems().add(product);
+            changePriceOfSelectedProductNode.getItems().add(product);
         }
     }
 
@@ -126,6 +124,13 @@ public class SettingSectionController implements Initializable{
 
     @javafx.fxml.FXML
     public void adjustTableCount(ActionEvent actionEvent) {
+        try{
+            Integer.valueOf(tableCountArea.getText());
+        }catch (Exception e){
+            Alert alert = new Alert(Alert.AlertType.ERROR,"Please enter a decimal number to tableCount area",ButtonType.OK);
+            alert.showAndWait();
+            return;
+        }
         if (Integer.parseInt(tableCountArea.getText()) > tableList.size()) {
             for (int i = tableList.size(); i < Integer.parseInt(tableCountArea.getText()); i++) {
                 tableList.add(new Table());

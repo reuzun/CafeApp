@@ -1,29 +1,19 @@
 package ceng.estu.controller;
 
-import ceng.estu.classes.Bill;
-import static ceng.estu.classes.Product.*;
 
+import static ceng.estu.classes.Product.*;
 import ceng.estu.classes.Product;
 import ceng.estu.classes.TYPE;
 import static ceng.estu.classes.Table.*;
-
 import ceng.estu.classes.Table;
-import ceng.estu.main.Main;
-import com.jfoenix.controls.JFXButton;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
-
 import java.io.FileWriter;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -35,8 +25,6 @@ import java.util.StringTokenizer;
  */
 public class TableSectionController implements Initializable {
     @FXML
-    private AnchorPane mainPanel;
-    @FXML
     private ListView<Table> tableListView;
     @FXML
     private ChoiceBox<Product> menuChoieceBox;
@@ -45,7 +33,7 @@ public class TableSectionController implements Initializable {
     @FXML
     private Text priceText;
     @FXML
-    private ChoiceBox countBox;
+    private ChoiceBox<Integer> countBox;
     @FXML
     private ChoiceBox<TYPE> typeBox;
 
@@ -107,7 +95,7 @@ public class TableSectionController implements Initializable {
                 while(scan.hasNext()){
                     String line = scan.nextLine();
                     if(flag){
-                        for (int i = 0; i < Integer.valueOf(line); i++) {
+                        for (int i = 0; i < Integer.parseInt(line); i++) {
                             Table table = new Table();
                             tableList.add(table);
                             tableListView.getItems().add(table);
@@ -118,7 +106,7 @@ public class TableSectionController implements Initializable {
                     StringTokenizer tokenizer = new StringTokenizer(line);
                     menu.add(new Product(tokenizer.nextToken(), Double.parseDouble(tokenizer.nextToken()),TYPE.valueOf(tokenizer.nextToken())));
                 }
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
         } else {
             for (int i = 0; i < 5; i++) {
@@ -128,14 +116,13 @@ public class TableSectionController implements Initializable {
             }
             menu.add(new Product("Su", 10.50, TYPE.Drink));
             menu.add(new Product("Hamburger", 120.50, TYPE.Food));
-            try(FileWriter writer = new FileWriter(GlobalVariables.configFile,true);){
+            try(FileWriter writer = new FileWriter(GlobalVariables.configFile,true)){
                 writer.write(5+System.lineSeparator());
-                for(int i = 0 ; i < menu.size() ; i++){
-                    Product p = menu.get(i);
-                    writer.write(p.getName()+" "+p.getPrice() + " " + p.type);
+                for (Product p : menu) {
+                    writer.write(p.getName() + " " + p.getPrice() + " " + p.type);
                     writer.write(System.lineSeparator());
                 }
-            }catch (Exception e){}
+            }catch (Exception ignored){}
             updateMenuChoiceBox();
         }
 
@@ -159,7 +146,7 @@ public class TableSectionController implements Initializable {
         double totalPrice = 0;
         Table temp = tableListView.getSelectionModel().getSelectedItem();
         for (Product p : temp.getBill().getBill()) {
-            String str = String.format("%-12s %-8.2f x%-6d", p.getName(), p.getPrice(), p.getCount());
+            String str = String.format("%-17s %-8.2f x%-6d", p.getName(), p.getPrice(), p.getCount());
             Label label = new Label(str);
             label.setMinWidth(600);
             label.setPrefWidth(1200);
@@ -194,17 +181,17 @@ public class TableSectionController implements Initializable {
 
     private void updateMenuChoiceBox() {
         menuChoieceBox.getItems().clear();
-        for (int i = 0; i < menu.size(); i++) {
-            if(typeBox.getSelectionModel().getSelectedItem().equals(menu.get(i).type))
-                menuChoieceBox.getItems().add(menu.get(i));
+        for (Product product : menu) {
+            if (typeBox.getSelectionModel().getSelectedItem().equals(product.type))
+                menuChoieceBox.getItems().add(product);
         }
     }
 
 
     private void updateTableList() {
         tableListView.getItems().clear();
-        for (int i = 0; i < tableList.size(); i++) {
-            tableListView.getItems().add(tableList.get(i));
+        for (Table table : tableList) {
+            tableListView.getItems().add(table);
         }
     }
 
