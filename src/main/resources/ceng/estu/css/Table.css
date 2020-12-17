@@ -1,5 +1,6 @@
-
-
+.button > .text{
+    -fx-font-weight: 900;
+}
 .choice-box .menu-item > .label {
     -fx-font-weight: 900;
 }

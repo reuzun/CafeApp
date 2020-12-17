@@ -15,7 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-
+import static ceng.estu.main.Main.stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -58,26 +58,43 @@ public class MainPanelController implements Initializable {
         }
         logoName.textFillProperty().bind(staticLogo.textFillProperty());
 
+        /*Timeline timeline = new Timeline(60,
+                new KeyFrame(Duration.millis(1250), e -> {
+                    for(int i = 0 ; i < 100000 ; i++){
+                            stage.setOpacity(stage.getOpacity() + 0.00001);
+                    }
+                })
+        );*/
+
+
+
         FadeTransition fadeTransition = new FadeTransition(Duration.millis(3000), img);
+        //fadeTransition.setDelay(Duration.millis(1750));
         fadeTransition.setFromValue(1.0f);
         fadeTransition.setToValue(0.1f);
         fadeTransition.setCycleCount(2);
         fadeTransition.setAutoReverse(true);
+        fadeTransition.setRate(0.75);
 
         RotateTransition rotateTransition = new RotateTransition(Duration.millis(3000), img);
+        //rotateTransition.setDelay(Duration.millis(1750));
         rotateTransition.setByAngle(360);
         rotateTransition.setCycleCount(1);
-        //rotateTransition.setAutoReverse(true);
 
         ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(3000), img);
+        //scaleTransition.setDelay(Duration.millis(1750));
         scaleTransition.setToX(0.5f);
         scaleTransition.setToY(0.5f);
         scaleTransition.setCycleCount(2);
         scaleTransition.setAutoReverse(true);
 
-        scaleTransition.play();
-        fadeTransition.play();
-        rotateTransition.play();
+
+        ParallelTransition pt = new ParallelTransition(scaleTransition, fadeTransition, rotateTransition);
+        pt.play();
+        //SequentialTransition seqT = new SequentialTransition (timeline, pt);
+        //seqT.play();
+
+
     }
 
     @javafx.fxml.FXML

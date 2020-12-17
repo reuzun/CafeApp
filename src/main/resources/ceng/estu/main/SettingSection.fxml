@@ -15,14 +15,14 @@
             <AnchorPane prefHeight="569.0" prefWidth="807.0" BorderPane.alignment="CENTER">
                <children>
                   <Button layoutX="729.0" layoutY="34.0" mnemonicParsing="false" onAction="#addProduct" text="Add Product" />
-                  <Button layoutX="332.0" layoutY="143.0" mnemonicParsing="false" onAction="#deleteProduct" text="Remove Product" />
+                  <Button layoutX="337.0" layoutY="143.0" mnemonicParsing="false" onAction="#deleteProduct" text="Remove Product" />
                   <Button layoutX="502.0" layoutY="86.0" mnemonicParsing="false" onAction="#changePrice" text="Change Price" />
                   <ChoiceBox fx:id="deleteFromMenuBoxNode" layoutX="121.0" layoutY="143.0" prefWidth="150.0" />
                   <ChoiceBox fx:id="changePriceOfSelectedProductNode" layoutX="121.0" layoutY="86.0" prefWidth="150.0" />
                   <TextField fx:id="priceAreaForAdding" layoutX="404.0" layoutY="34.0" prefHeight="25.0" prefWidth="77.0" />
                   <TextField fx:id="priceAreaForChanging" layoutX="404.0" layoutY="86.0" prefHeight="25.0" prefWidth="77.0" />
                   <TextField fx:id="tableCountArea" layoutX="121.0" layoutY="202.0" />
-                  <Button layoutX="325.0" layoutY="202.0" mnemonicParsing="false" onAction="#adjustTableCount" text="Adjust Table Count" />
+                  <Button layoutX="337.0" layoutY="202.0" mnemonicParsing="false" onAction="#adjustTableCount" text="Adjust Table Count" />
                   <Text layoutX="14.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Table Count :" wrappingWidth="129.13671875" />
                   <Text layoutX="14.0" layoutY="159.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Name:" wrappingWidth="102.13671875" />
                   <Text layoutX="14.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Name:" wrappingWidth="102.13671875" />
@@ -31,7 +31,7 @@
                         <Font size="34.0" />
                      </font>
                   </Text>
-                  <ChoiceBox fx:id="typeBox" layoutX="595.0" layoutY="34.0" prefHeight="25.0" prefWidth="103.0" />
+                  <ChoiceBox fx:id="typeBox" layoutX="611.0" layoutY="34.0" prefHeight="25.0" prefWidth="103.0" />
                   <Text layoutX="502.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Type:" />
                   <TextField fx:id="nameAreaForAdding" layoutX="121.0" layoutY="34.0" prefHeight="25.0" prefWidth="151.0" />
                   <Text layoutX="14.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Product Name:" wrappingWidth="102.13671875" />

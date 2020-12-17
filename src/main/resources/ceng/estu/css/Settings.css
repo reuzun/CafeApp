@@ -1,3 +1,7 @@
+.root{
+    -fx-font-weight: 900;
+}
+
 .choice-box:hover {
     -fx-scale-y: 1.1;
 }
