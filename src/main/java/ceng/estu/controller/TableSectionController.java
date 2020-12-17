@@ -10,6 +10,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
@@ -36,6 +37,8 @@ public class TableSectionController implements Initializable {
     private ChoiceBox<Integer> countBox;
     @FXML
     private ChoiceBox<TYPE> typeBox;
+
+    static boolean tableFlag = false;
 
 
     @FXML
@@ -127,6 +130,21 @@ public class TableSectionController implements Initializable {
         }
 
         tableListView.setOnMouseClicked(e -> {
+            if(e.getButton() == MouseButton.SECONDARY&& e.getClickCount() == 2 ){
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION,"Are you sure about removing this table ?",ButtonType.APPLY,ButtonType.CANCEL);
+                alert.showAndWait();
+                if (alert.getResult() == ButtonType.APPLY) {
+                    tableListView.getItems().remove(tableListView.getSelectionModel().getSelectedItem());
+                }else{
+                    return;
+                }
+
+            }
+
+            if(tableFlag){
+                updateTableList();
+                tableFlag = false;
+            }
             try {
                 updateBill();
                 updateMenuChoiceBox();
@@ -189,10 +207,14 @@ public class TableSectionController implements Initializable {
 
 
     private void updateTableList() {
+        int index = tableListView.getSelectionModel().getSelectedIndex();
         tableListView.getItems().clear();
         for (Table table : tableList) {
             tableListView.getItems().add(table);
         }
+
+            tableListView.getSelectionModel().select(index);
+
     }
 
 

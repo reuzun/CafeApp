@@ -124,6 +124,7 @@ public class SettingSectionController implements Initializable{
 
     @javafx.fxml.FXML
     public void adjustTableCount(ActionEvent actionEvent) {
+        TableSectionController.tableFlag = true;
         try{
             Integer.valueOf(tableCountArea.getText());
         }catch (Exception e){
