@@ -1,7 +1,7 @@
 package ceng.estu.controller;
 
 import ceng.estu.classes.Product;
-import ceng.estu.classes.TYPE;
+import ceng.estu.classes.Type;
 import ceng.estu.classes.Table;
 
 import static ceng.estu.classes.Product.*;
@@ -35,7 +35,7 @@ public class SettingSectionController implements Initializable{
     @javafx.fxml.FXML
     private TextField tableCountArea;
     @javafx.fxml.FXML
-    private ChoiceBox<TYPE> typeBox;
+    private ChoiceBox<Type> typeBox;
 
 
     @javafx.fxml.FXML
@@ -116,8 +116,8 @@ public class SettingSectionController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         updateChoiceBoxes();
-        TYPE[] List = TYPE.values();
-        for(TYPE T : List){
+        Type[] List = Type.values();
+        for(Type T : List){
             typeBox.getItems().add(T);
         }
         typeBox.getSelectionModel().selectFirst();

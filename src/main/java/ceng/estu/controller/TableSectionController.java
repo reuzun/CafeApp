@@ -3,7 +3,7 @@ package ceng.estu.controller;
 
 import static ceng.estu.classes.Product.*;
 import ceng.estu.classes.Product;
-import ceng.estu.classes.TYPE;
+import ceng.estu.classes.Type;
 import static ceng.estu.classes.Table.*;
 import ceng.estu.classes.Table;
 import javafx.event.ActionEvent;
@@ -11,15 +11,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import java.io.FileWriter;
 import java.net.URL;
 import java.util.*;
-
-import ceng.estu.classes.TYPE;
 
 /**
  * @author reuzun
@@ -36,7 +33,7 @@ public class TableSectionController implements Initializable {
     @FXML
     private ChoiceBox<Integer> countBox;
     @FXML
-    private ChoiceBox<TYPE> typeBox;
+    private ChoiceBox<Type> typeBox;
 
     static boolean tableFlag = false;
 
@@ -82,8 +79,8 @@ public class TableSectionController implements Initializable {
         typeBox.getItems().add(TYPE.Drink);
 */
         //for more types.
-        TYPE[] List = TYPE.values();
-        for(TYPE T : List){
+        Type[] List = Type.values();
+        for(Type T : List){
             typeBox.getItems().add(T);
         }
 
@@ -115,7 +112,7 @@ public class TableSectionController implements Initializable {
                         continue;
                     }
                     StringTokenizer tokenizer = new StringTokenizer(line);
-                    menu.add(new Product(tokenizer.nextToken(), Double.parseDouble(tokenizer.nextToken()),TYPE.valueOf(tokenizer.nextToken())));
+                    menu.add(new Product(tokenizer.nextToken(), Double.parseDouble(tokenizer.nextToken()), Type.valueOf(tokenizer.nextToken())));
                 }
             } catch (Exception ignored) {
             }
@@ -125,8 +122,8 @@ public class TableSectionController implements Initializable {
                 tableList.add(table);
                 tableListView.getItems().add(table);
             }
-            menu.add(new Product("Su", 10.50, TYPE.Drink));
-            menu.add(new Product("Hamburger", 120.50, TYPE.Food));
+            menu.add(new Product("Su", 10.50, Type.Drink));
+            menu.add(new Product("Hamburger", 120.50, Type.Food));
             try(FileWriter writer = new FileWriter(GlobalVariables.configFile,true)){
                 writer.write(5+System.lineSeparator());
                 for (Product p : menu) {

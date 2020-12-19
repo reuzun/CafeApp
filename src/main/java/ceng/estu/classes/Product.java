@@ -10,9 +10,9 @@ public class Product {
     private String name;
     private double price;
     private int count;
-    public TYPE type;
+    public Type type;
 
-    public Product(String name, double price, TYPE type) {
+    public Product(String name, double price, Type type) {
         this.name = name;
         this.price = price;
         count = 1;
