@@ -17,9 +17,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import java.io.FileWriter;
 import java.net.URL;
-import java.util.ResourceBundle;
-import java.util.Scanner;
-import java.util.StringTokenizer;
+import java.util.*;
+
+import ceng.estu.classes.TYPE;
 
 /**
  * @author reuzun
@@ -76,8 +76,16 @@ public class TableSectionController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+
+/*
         typeBox.getItems().add(TYPE.Food);
         typeBox.getItems().add(TYPE.Drink);
+*/
+        //for more types.
+        TYPE[] List = TYPE.values();
+        for(TYPE T : List){
+            typeBox.getItems().add(T);
+        }
 
         typeBox.getSelectionModel().selectFirst();
 

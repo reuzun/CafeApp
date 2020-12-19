@@ -116,8 +116,10 @@ public class SettingSectionController implements Initializable{
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         updateChoiceBoxes();
-        typeBox.getItems().add(TYPE.Food);
-        typeBox.getItems().add(TYPE.Drink);
+        TYPE[] List = TYPE.values();
+        for(TYPE T : List){
+            typeBox.getItems().add(T);
+        }
         typeBox.getSelectionModel().selectFirst();
     }
 
