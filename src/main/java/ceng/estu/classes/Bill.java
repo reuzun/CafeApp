@@ -1,74 +1,73 @@
 package ceng.estu.classes;
 
-import ceng.estu.controller.GlobalVariables;
 
 import java.util.LinkedList;
 
 /**
+ * This class bounds tables and bills to each other Also
+ * provide some functionality about adding products to bill.
+ *
+ *
  * @author reuzun
  */
 public class Bill {
+    /**
+     * A list that holds products for identifed Table in the class.
+     */
     private LinkedList<Product> bill;
+    /**
+     * Table that has the bill.
+     */
     private Table table;
+    /**
+     * The Total price.
+     */
     public double totalPrice = 0;
 
 
+    /**
+     * Instantiates a new Bill.
+     */
     public Bill(){
         bill = new LinkedList<>();
     }
 
+    /**
+     * Gets bill.
+     *
+     * @return the bill
+     */
     public LinkedList<Product> getBill() {
         return bill;
     }
 
-    public void setBill(LinkedList<Product> bill) {
-        this.bill = bill;
-    }
 
-    public Table getTable() {
-        return table;
-    }
-
+    /**
+     * Sets table of the bill.
+     *
+     * @param table the table
+     */
     public void setTable(Table table) {
         this.table = table;
     }
 
 
-
     /**
-     * Adds the specified item to bill.
+     * Adds the specified item in specified count to bill.
      *
-     * @param product the product
+     * @param product the Product
+     * @param count   the Count of product to add.
      */
-    public void addToBill(Product product, int a){
-        totalPrice += product.getPrice()*a;
+    public void addToBill(Product product, int count){
+        totalPrice += product.getPrice()*count;
         for(int i = 0 ; i < bill.size() ; i++){
             if(bill.get(i).getName().equals(product.getName())){
-                bill.get(i).increaseCount(a);
+                bill.get(i).increaseCount(count);
                 return;
             }
         }
-        product.increaseCount(a-1);
+        product.increaseCount(count-1);
         bill.add(product);
-    }
-
-    /**
-     * Removes the specified item to bill.
-     *
-     * @param product the product
-     */
-    /*public void removeFromBill(Product product){
-        bill.remove(product);
-        totalPrice -= product.getPrice();
-    }
-
-    public void removeFromBill(int indx){
-        bill.remove(bill.get(indx));
-        totalPrice -= bill.get(indx).getPrice();
-    }*/
-
-    public void pay(){
-        table.reset();
     }
 
 }
