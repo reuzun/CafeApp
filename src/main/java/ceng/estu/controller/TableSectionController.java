@@ -197,7 +197,8 @@ public class TableSectionController implements Initializable {
                 }
             });
         }
-        temp.getBill().totalPrice = totalPrice;
+        String pricea = String.format("%-10.2f", totalPrice);
+        temp.getBill().totalPrice = Double.parseDouble(pricea.replace(",","."));
         String price = String.format("%,-10.2f", totalPrice);
         priceText.setText(price);
     }
