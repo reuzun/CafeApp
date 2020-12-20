@@ -72,7 +72,7 @@ public class TableSectionController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        tableListView.itemsProperty().bind(SettingSectionController.globalListView.itemsProperty());
 
 /*
         typeBox.getItems().add(TYPE.Food);
@@ -146,10 +146,10 @@ public class TableSectionController implements Initializable {
 
             }
 
-            if(tableFlag){
+            /*if(tableFlag){
                 updateTableList();
                 tableFlag = false;
-            }
+            }*/
             try {
                 updateBill();
                 updateMenuChoiceBox();
@@ -177,7 +177,6 @@ public class TableSectionController implements Initializable {
             Button btn = new Button("Remove x1");
             label.setGraphic(btn);
             label.setStyle("-fx-font-family: monospaced");
-            //label.setStyle("-fx-font-weight: 900");
             label.setFont(new Font(15.5));
             BillVBox.getChildren().add(label);
             totalPrice += p.getPrice() * p.getCount();
@@ -212,16 +211,13 @@ public class TableSectionController implements Initializable {
     }
 
 
-    private void updateTableList() {
-        int index = tableListView.getSelectionModel().getSelectedIndex();
-        tableListView.getItems().clear();
+    public static void updateTableList() {
+        SettingSectionController.globalListView.getItems().clear();
         for (Table table : tableList) {
-            tableListView.getItems().add(table);
+            SettingSectionController.globalListView.getItems().add(table);
         }
-
-            tableListView.getSelectionModel().select(index);
-
     }
+
 
 
     private void refreshHelper() {

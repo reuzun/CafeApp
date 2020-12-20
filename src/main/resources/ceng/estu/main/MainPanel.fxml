@@ -4,6 +4,7 @@
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.effect.Light.Distant?>
 <?import javafx.scene.effect.Lighting?>
 <?import javafx.scene.effect.Shadow?>
@@ -32,6 +33,9 @@
                <font>
                   <Font name="Curlz MT" size="22.0" />
                </font>
+               <effect>
+                  <DropShadow />
+               </effect>
             </Label>
             <JFXButton onAction="#getTablesSection" prefHeight="91.0" prefWidth="210.0" style="-fx-background-color: #726a75;" text="Tables" textFill="#00ffbf">
                <font>

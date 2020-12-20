@@ -20,7 +20,7 @@ public class Table {
     /**
      * The Id of table.
      */
-    static int id = 0;
+    public static int id = 0;
     private Bill bill;
 
     /**

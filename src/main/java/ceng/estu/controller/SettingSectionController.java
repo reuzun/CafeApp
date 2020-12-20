@@ -9,10 +9,8 @@ import static ceng.estu.classes.Table.*;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
@@ -36,6 +34,8 @@ public class SettingSectionController implements Initializable{
     private TextField tableCountArea;
     @javafx.fxml.FXML
     private ChoiceBox<Type> typeBox;
+
+    static ListView globalListView = new ListView();
 
 
     @javafx.fxml.FXML
@@ -144,8 +144,13 @@ public class SettingSectionController implements Initializable{
             int wanted = Integer.parseInt(tableCountArea.getText());
             for (int i = size-1 ; wanted <= i ; i--) {
                 tableList.remove(i);
+                id--;
             }
         }
+        TableSectionController.updateTableList();
+        Alert alert = new Alert(Alert.AlertType.NONE,"The table count is adjusted.",ButtonType.OK);
+        alert.setTitle("Table count adjusted.");
+        alert.showAndWait();
         GlobalVariables.updateCFG();
     }
 }
