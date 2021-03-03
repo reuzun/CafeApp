@@ -26,6 +26,7 @@
                         <Button layoutX="424.0" layoutY="49.0" mnemonicParsing="false" onAction="#addToBill" text="Add To Bill" />
                         <ChoiceBox fx:id="countBox" layoutX="340.0" layoutY="49.0" prefHeight="25.0" prefWidth="57.0" />
                         <ChoiceBox fx:id="typeBox" layoutX="42.0" layoutY="49.0" prefHeight="25.0" prefWidth="106.0" />
+                        <Button layoutX="527.0" layoutY="49.0" mnemonicParsing="false" onAction="#changeMusic" prefHeight="25.0" prefWidth="112.0" text="ChangeMusic" />
                      </children>
                   </AnchorPane>
                </top>

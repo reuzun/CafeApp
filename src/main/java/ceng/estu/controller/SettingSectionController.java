@@ -20,6 +20,9 @@ import java.util.StringTokenizer;
  */
 public class SettingSectionController implements Initializable{
 
+    public String variable = "Not Effected.";
+
+
     @javafx.fxml.FXML
     private TextField priceAreaForChanging;
     @javafx.fxml.FXML
@@ -71,6 +74,19 @@ public class SettingSectionController implements Initializable{
         priceAreaForAdding.setText("");
         updateChoiceBoxes();
         GlobalVariables.updateCFG();
+
+
+
+
+        /*
+        System.out.println("Before pressing the button : " + ((MusicPlayerController) MainPanelController.controller).variable  );
+
+        if(MainPanelController.controller instanceof MusicPlayerController){
+            ((MusicPlayerController) MainPanelController.controller).variable = "Effected";
+        }
+        System.out.println("Before pressing the button : " + ((MusicPlayerController) MainPanelController.controller).variable  );
+        */
+
     }
 
     @javafx.fxml.FXML

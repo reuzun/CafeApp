@@ -1,11 +1,14 @@
 package ceng.estu.controller;
 
 
+import ceng.estu.main.Main;
 import com.jfoenix.controls.JFXSlider;
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListView;
@@ -20,18 +23,13 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Stack;
 
 public class MusicPlayerController implements Initializable {
-   /* @FXML
-    public AnchorPane mainPanel;
-
-
-    /*private double xOffset = 0;
-    private double yOffset = 0;*/
 
     @FXML
     private ListView<String> lv;
@@ -54,6 +52,9 @@ public class MusicPlayerController implements Initializable {
     @FXML
     private ImageView imgView;
 
+    public MusicPlayerController() throws IOException {
+    }
+
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -64,9 +65,19 @@ public class MusicPlayerController implements Initializable {
         img.toFront();
     }
 
+    public String variable = "NOT EFFECTED";
+
     @javafx.fxml.FXML
-    public void listenNextSong(ActionEvent actionEvent) throws MalformedURLException {
+    public void listenNextSong(ActionEvent actionEvent) throws IOException {
+        Object stack = playedSongs.clone();
+        if(stack instanceof Stack){
+            while(!((Stack<?>) stack).isEmpty()){
+                System.out.println(((Stack<?>) stack).pop());
+            }
+        }
+        //MusicPlayerController.player = new MediaPlayer();
         this.playRandomMusic();
+
     }
 
     @javafx.fxml.FXML
@@ -125,7 +136,7 @@ public class MusicPlayerController implements Initializable {
     }
 
 
-    private MediaPlayer player;
+    private static MediaPlayer player;
     static boolean voiceFlag = true;
 
     @FXML
@@ -158,19 +169,23 @@ public class MusicPlayerController implements Initializable {
         lv.getSelectionModel().select(random);
 
         try {
-            if (lv.getSelectionModel().getSelectedItem().equals(playedSongs.peek())) {
+            if (!playedSongs.isEmpty() && lv.getSelectionModel().getSelectedItem().equals(playedSongs.peek())) {
                 playRandomMusic();
                 return;
             }
         }catch (Exception ignored){
+            ignored.printStackTrace();
         }
+
         playSong(lv.getSelectionModel().getSelectedItem());
 
     }
 
     private void playSong(String str){
 
-        if (str == null) return; //if selects null then get out of method.
+        if (str == null){
+            return; //if selects null then get out of method.
+        }
         File musicFile = new File("musics" + File.separator + str);
         Media music;
         try {
@@ -238,6 +253,7 @@ public class MusicPlayerController implements Initializable {
             });
 
             player.play();
+
             playedSongs.push(player.getMedia().getSource().substring(player.getMedia().getSource().lastIndexOf("/") + 1));
             //System.out.println(playedSongs.peek());
             //StaticController.Amblem.setFill(Color.rgb(172,60,60,1));

@@ -8,13 +8,19 @@ import static ceng.estu.classes.Table.*;
 import ceng.estu.classes.Table;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+
+import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.*;
 
@@ -227,6 +233,25 @@ public class TableSectionController implements Initializable {
         updateTableList();
         tableListView.getSelectionModel().select(a);
         menuChoieceBox.getSelectionModel().select(b);
+    }
+
+    @FXML
+    void changeMusic(ActionEvent event) throws IOException {
+        /*
+        File file = new File("C:\\Users\\Efe\\Documents\\IntelliJProjects\\CafeApp\\src\\main\\resources\\ceng\\estu\\main\\MusicPlayerPage.fxml");
+        URL url = file.toURI().toURL();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(""));
+        loader.setLocation(url);
+        Parent root = (Parent) loader.load();
+        Object controller = loader.getController();
+
+*/
+
+
+
+        if(MainPanelController.controller instanceof MusicPlayerController){
+            ((MusicPlayerController) MainPanelController.controller).listenNextSong(new ActionEvent());
+        }
     }
 
 }

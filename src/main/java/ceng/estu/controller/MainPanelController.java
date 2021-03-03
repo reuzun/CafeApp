@@ -6,6 +6,7 @@ import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -32,6 +33,7 @@ public class MainPanelController implements Initializable {
     static Scene settingScene;
     static Scene howToUseScene;
     static Scene musicPlayerPage;
+    static Object controller;
 
     @javafx.fxml.FXML
     private AnchorPane mainPanel;
@@ -55,37 +57,51 @@ public class MainPanelController implements Initializable {
             tableScene = new Scene(Main.loadFXML("TableSection"));
             settingScene = new Scene(Main.loadFXML("SettingSection"));
             howToUseScene = new Scene(Main.loadFXML("HowToUse"));
+
             musicPlayerPage = new Scene(Main.loadFXML("MusicPlayerPage"));
+
+
+            controller = Main.loader.getController();
+
+            //System.out.println(controller);
         } catch (IOException e) {
             e.printStackTrace();
         }
         logoName.textFillProperty().bind(staticLogo.textFillProperty());
 
-        /*Timeline timeline = new Timeline(60,
-                new KeyFrame(Duration.millis(1250), e -> {
+
+        Timeline timeline = new Timeline(5,
+                new KeyFrame(Duration.millis(1000), e -> {
                     for(int i = 0 ; i < 100000 ; i++){
                             stage.setOpacity(stage.getOpacity() + 0.00001);
                     }
                 })
-        );*/
+        );
+
+        Thread th1 = new Thread(timeline::play);
+        th1.start();
+        try {
+            th1.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
 
-
-        FadeTransition fadeTransition = new FadeTransition(Duration.millis(3000), img);
-        //fadeTransition.setDelay(Duration.millis(1750));
+        FadeTransition fadeTransition = new FadeTransition(Duration.millis(3500), img);
+        fadeTransition.setDelay(Duration.millis(1750));
         fadeTransition.setFromValue(1.0f);
         fadeTransition.setToValue(0.1f);
         fadeTransition.setCycleCount(2);
         fadeTransition.setAutoReverse(true);
         fadeTransition.setRate(0.75);
 
-        RotateTransition rotateTransition = new RotateTransition(Duration.millis(3000), img);
-        //rotateTransition.setDelay(Duration.millis(1750));
+        RotateTransition rotateTransition = new RotateTransition(Duration.millis(3500), img);
+        rotateTransition.setDelay(Duration.millis(1750));
         rotateTransition.setByAngle(360);
         rotateTransition.setCycleCount(1);
 
-        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(3000), img);
-        //scaleTransition.setDelay(Duration.millis(1750));
+        ScaleTransition scaleTransition = new ScaleTransition(Duration.millis(3500), img);
+        scaleTransition.setDelay(Duration.millis(1750));
         scaleTransition.setToX(0.5f);
         scaleTransition.setToY(0.5f);
         scaleTransition.setCycleCount(2);
@@ -94,6 +110,7 @@ public class MainPanelController implements Initializable {
 
         ParallelTransition pt = new ParallelTransition(scaleTransition, fadeTransition, rotateTransition);
         pt.play();
+
         //SequentialTransition seqT = new SequentialTransition (timeline, pt);
         //seqT.play();
 
