@@ -56,7 +56,6 @@ public class MainPanelController implements Initializable {
         try {
             tableScene = new Scene(Main.loadFXML("TableSection"));
             settingScene = new Scene(Main.loadFXML("SettingSection"));
-            howToUseScene = new Scene(Main.loadFXML("HowToUse"));
 
             musicPlayerPage = new Scene(Main.loadFXML("MusicPlayerPage"));
 
