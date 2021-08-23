@@ -17,3 +17,6 @@ This is a useful and small sized cafe order tracking application for waiters. Ta
 
 # Demonstration
 ![appgif](https://user-images.githubusercontent.com/73116832/119018249-932e6b00-b9a4-11eb-8b73-be6f9098abed.gif)
+
+## Licence
+Licensed under [GPL-3.0 License](LICENSE).
